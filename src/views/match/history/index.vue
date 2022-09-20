@@ -67,8 +67,8 @@
         <template #default="scope">
           <el-button
             type="text"
-            icon="Edit"
-            @click="handleUpdate(scope.row)"
+            icon="Warning"
+            @click="handleInfo(scope.row)"
             v-hasPermi="['match:history:query']"
           >详情</el-button>
         </template>
@@ -83,7 +83,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改赛事对话框 -->
+    <!-- 赛事详情对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="matchRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="大赛名称" prop="name">
@@ -111,8 +111,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" @click="cancel">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -215,54 +214,15 @@ function resetQuery() {
   handleQuery();
 }
 
-/** 新增按钮操作 */
-function handleAdd() {
-  reset();
-  open.value = true;
-  title.value = "添加赛事";
-}
-
-/** 修改按钮操作 */
-function handleUpdate(row) {
+/** 查看详情按钮操作 */
+function handleInfo(row) {
   reset();
   const _id = row.id || ids.value
   getMatch(_id).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "修改赛事";
+    title.value = "赛事详情";
   });
-}
-
-/** 提交按钮 */
-function submitForm() {
-  proxy.$refs["matchRef"].validate(valid => {
-    if (valid) {
-      if (form.value.id != null) {
-        updateMatch(form.value).then(response => {
-          proxy.$modal.msgSuccess("修改成功");
-          open.value = false;
-          getList();
-        });
-      } else {
-        addMatch(form.value).then(response => {
-          proxy.$modal.msgSuccess("新增成功");
-          open.value = false;
-          getList();
-        });
-      }
-    }
-  });
-}
-
-/** 删除按钮操作 */
-function handleDelete(row) {
-  const _ids = row.id || ids.value;
-  proxy.$modal.confirm('是否确认删除赛事编号为"' + _ids + '"的数据项？').then(function() {
-    return delMatch(_ids);
-  }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
 }
 
 /** 导出按钮操作 */
