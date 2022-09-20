@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="100px">
       <el-form-item label="大赛名称" prop="name">
         <el-input
           v-model="queryParams.name"
@@ -36,46 +36,16 @@
         <el-button
           type="primary"
           plain
-          icon="Plus"
-          @click="handleAdd"
-          v-hasPermi="['school:match:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="Edit"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['school:match:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="Delete"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['school:match:remove']"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
           icon="Download"
           @click="handleExport"
           v-hasPermi="['school:match:export']"
-        >导出</el-button>
+        >导出为Excel</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="matchList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键ID" align="center" prop="id" />
+    <el-table v-loading="loading" :data="matchList">
+      <el-table-column label="序号" type="index" width="55" />
       <el-table-column label="大赛名称" align="center" prop="name" />
       <el-table-column label="大赛logo" align="center" prop="logo" width="100">
         <template #default="scope">
@@ -83,12 +53,12 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="大赛开始时间" align="center" prop="startTime" width="180">
+      <el-table-column label="大赛开始时间" align="center" prop="startTime" width="150">
         <template #default="scope">
           <span>{{ parseTime(scope.row.startTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="大赛结束时间" align="center" prop="endTime" width="180">
+      <el-table-column label="大赛结束时间" align="center" prop="endTime" width="150">
         <template #default="scope">
           <span>{{ parseTime(scope.row.endTime, '{y}-{m}-{d}') }}</span>
         </template>
@@ -99,14 +69,8 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['school:match:edit']"
-          >修改</el-button>
-          <el-button
-            type="text"
-            icon="Delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['school:match:remove']"
-          >删除</el-button>
+            v-hasPermi="['match:history:query']"
+          >详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -249,13 +213,6 @@ function handleQuery() {
 function resetQuery() {
   proxy.resetForm("queryRef");
   handleQuery();
-}
-
-// 多选框选中数据
-function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.id);
-  single.value = selection.length != 1;
-  multiple.value = !selection.length;
 }
 
 /** 新增按钮操作 */

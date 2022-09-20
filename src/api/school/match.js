@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询赛事列表
 export function listMatch(query) {
   return request({
-    url: '/school/match/list',
+    url: '/match/history/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listMatch(query) {
 // 查询赛事详细
 export function getMatch(id) {
   return request({
-    url: '/school/match/' + id,
+    url: '/match/history/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getMatch(id) {
 // 新增赛事
 export function addMatch(data) {
   return request({
-    url: '/school/match',
+    url: '/match/history',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addMatch(data) {
 // 修改赛事
 export function updateMatch(data) {
   return request({
-    url: '/school/match',
+    url: '/match/history',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateMatch(data) {
 // 删除赛事
 export function delMatch(id) {
   return request({
-    url: '/school/match/' + id,
+    url: '/match/history/' + id,
     method: 'delete'
   })
 }
