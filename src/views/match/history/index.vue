@@ -38,7 +38,7 @@
           plain
           icon="Download"
           @click="handleExport"
-          v-hasPermi="['school:match:export']"
+          v-hasPermi="['match:history:export']"
         >导出为Excel</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
@@ -120,7 +120,7 @@
 </template>
 
 <script setup>
-import { listMatch, getMatch, delMatch, addMatch, updateMatch } from "@/api/school/match";
+import { listMatch, getMatch, delMatch, addMatch, updateMatch } from "@/api/match/history/match";
 
 const { proxy } = getCurrentInstance();
 
@@ -267,7 +267,7 @@ function handleDelete(row) {
 
 /** 导出按钮操作 */
 function handleExport() {
-  proxy.download('school/match/export', {
+  proxy.download('match/history/export', {
     ...queryParams.value
   }, `match_${new Date().getTime()}.xlsx`)
 }
