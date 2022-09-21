@@ -1,12 +1,42 @@
 <template>
   <div>
-
-
-    <div style="height: 150px;color: #99a9bf">提示：当前没有进行中的赛事，请添加新赛事</div>
+    <div style="height: 150px;color: #99a9bf">
+      <span v-if="hasMatch">提示：当前已有进行中的赛事，请设置赛事相关信息</span>
+      <span v-else>提示：当前没有进行中的赛事，请添加新赛事</span>
+    </div>
     <el-row>
       <el-col :span="7"></el-col>
-      <el-col :span="8" v-if="hasMatch">
-
+      <el-col :span="8" v-if="hasMatch" style="text-align: center">
+        <ImagePreview :src="matchInfo.value.logo" :width="100" :height="100"/>
+        <h2> {{ matchInfo.value.name }}</h2>
+        <el-row>
+          <el-col :span="4"></el-col>
+          <el-col :span="7">
+            <el-date-picker
+                disabled
+                v-model="matchInfo.value.startTime"
+                type="date"
+                value-format="YYYY-MM-DD"
+                placeholder=""
+                style="width: 100%"
+            />
+          </el-col>
+          <el-col :span="2" class="text-center">
+            <span class="text-gray-500">~</span>
+          </el-col>
+          <el-col :span="7">
+            <el-date-picker
+                disabled
+                v-model="matchInfo.value.endTime"
+                placeholder=""
+                type="date"
+                value-format="YYYY-MM-DD"
+                style="width: 100%"
+            />
+          </el-col>
+          <el-col :span="4"></el-col>
+        </el-row>
+        <el-button type="primary" style="margin-top: 20px" @click="toEditMatch">前往设置</el-button>
       </el-col>
       <el-col :span="8" v-else>
         <el-form ref="ruleFormRef" :rules="rules" :model="form" class="demo-form-inline" label-width="200px">
@@ -59,6 +89,7 @@ import {getCurrentMatch, addMatch} from "@/api/match/history/match";
 
 import ImageUpload from "@/components/ImageUpload";
 import {ElLoading} from "element-plus";
+import {useRouter} from "vue-router";
 
 const {proxy} = getCurrentInstance()
 
@@ -128,6 +159,9 @@ function onSubmit() {
         proxy.$modal.msgSuccess("新增赛事成功");
         getCurrentMatch().then(res => {
           hasMatch.value = res.code === 200;
+          if (hasMatch.value) {
+            matchInfo.value = res.data
+          }
           loading.close()
         })
       })
@@ -143,9 +177,19 @@ onMounted(() => {
   })
   getCurrentMatch().then(res => {
     hasMatch.value = res.data !== undefined;
+    if (hasMatch.value) {
+      matchInfo.value = res.data
+    }
     loading.close()
   })
 })
+
+const matchInfo = reactive({})
+const router = useRouter();
+
+function toEditMatch(){
+  router.push('/match/editMatch')
+}
 
 </script>
 

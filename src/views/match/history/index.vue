@@ -216,27 +216,27 @@
       </el-form>
       <el-row>
         <el-col :span="6" class="text-center" v-if="form.competitionNotice">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.competitionNotice)">大赛通知</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.competitionNotice)">大赛通知</el-button>
         </el-col>
         <el-col :span="6" class="text-center" v-if="form.competitionGuide">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.competitionGuide)">大赛指南</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.competitionGuide)">大赛指南</el-button>
         </el-col>
         <el-col :span="6" class="text-center" v-if="form.reviewRules">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.reviewRules)">评审规则</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.reviewRules)">评审规则</el-button>
         </el-col>
         <el-col :span="6" class="text-center" v-if="form.competitionReviewManual">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.competitionReviewManual)">大赛评审手册</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.competitionReviewManual)">大赛评审手册</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
         <el-col :span="8" class="text-center" v-if="form.studentOperationManual">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.studentOperationManual)">学生操作手册</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.studentOperationManual)">学生操作手册</el-button>
         </el-col>
         <el-col :span="8" class="text-center" v-if="form.collegeSchoolOperationManual">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.collegeSchoolOperationManual)">院级校级操作手册</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.collegeSchoolOperationManual)">院级校级操作手册</el-button>
         </el-col>
         <el-col :span="8" class="text-center" v-if="form.businessCooperationInvitation">
-          <el-button type="primary" icon="Download" @click="handleDownload(form.businessCooperationInvitation)">商业合作邀请函</el-button>
+          <el-button type="primary" plain icon="Download" @click="handleDownload(form.businessCooperationInvitation)">商业合作邀请函</el-button>
         </el-col>
       </el-row>
       <template #footer>
@@ -368,7 +368,6 @@ function handleDownload(resource){
 }
 
 onMounted(()=>{
-  console.log("666")
   getList()
 })
 </script>
