@@ -1,52 +1,56 @@
 <template>
-  <div style="height: 150px"></div>
-  <el-row>
-    <el-col :span="7"></el-col>
-    <el-col :span="8" v-if="hasMatch">
+  <div>
 
-    </el-col>
-    <el-col :span="8" v-else>
-      <el-form ref="ruleFormRef" :rules="rules" :model="form" class="demo-form-inline" label-width="200px">
-        <el-form-item label="大赛名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入大赛名称"/>
-        </el-form-item>
-        <el-form-item label="大赛logo">
-          <ImageUpload :model-value="form.logo"/>
-        </el-form-item>
-        <el-form-item label="大赛时间" required>
-          <el-col :span="11">
-            <el-form-item prop="startTime">
-              <el-date-picker
-                  v-model="form.startTime"
-                  type="date"
-                  value-format="YYYY-MM-DD"
-                  placeholder=""
-                  style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="2" class="text-center">
-            <span class="text-gray-500">~</span>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item prop="endTime">
-              <el-date-picker
-                  v-model="form.endTime"
-                  placeholder=""
-                  type="date"
-                  value-format="YYYY-MM-DD"
-                  style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">新增赛事</el-button>
-        </el-form-item>
-      </el-form>
-    </el-col>
-    <el-col :span="9"></el-col>
-  </el-row>
+
+    <div style="height: 150px;color: #99a9bf">提示：当前没有进行中的赛事，请添加新赛事</div>
+    <el-row>
+      <el-col :span="7"></el-col>
+      <el-col :span="8" v-if="hasMatch">
+
+      </el-col>
+      <el-col :span="8" v-else>
+        <el-form ref="ruleFormRef" :rules="rules" :model="form" class="demo-form-inline" label-width="200px">
+          <el-form-item label="大赛名称" prop="name">
+            <el-input v-model="form.name" placeholder="请输入大赛名称"/>
+          </el-form-item>
+          <el-form-item label="大赛logo">
+            <ImageUpload :model-value="form.logo"/>
+          </el-form-item>
+          <el-form-item label="大赛时间" required>
+            <el-col :span="11">
+              <el-form-item prop="startTime">
+                <el-date-picker
+                    v-model="form.startTime"
+                    type="date"
+                    value-format="YYYY-MM-DD"
+                    placeholder=""
+                    style="width: 100%"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="2" class="text-center">
+              <span class="text-gray-500">~</span>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item prop="endTime">
+                <el-date-picker
+                    v-model="form.endTime"
+                    placeholder=""
+                    type="date"
+                    value-format="YYYY-MM-DD"
+                    style="width: 100%"
+                />
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">新增赛事</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+      <el-col :span="9"></el-col>
+    </el-row>
+  </div>
 </template>
 
 <script setup>
@@ -77,10 +81,9 @@ const endTime = (rules, value, callback) => {
       callback(new Error('请选择开始时间！'))
     } else if (Date.parse(form.value.startTime) >= Date.parse(value)) {
       callback(new Error('结束时间必须大于开始时间！'))
-    }else if(Date.now() >= Date.parse(value)){
+    } else if (Date.now() >= Date.parse(value)) {
       callback(new Error('结束时间必须大于今日！'))
-    }
-    else {
+    } else {
       callback()
     }
   }
@@ -108,7 +111,6 @@ const data = reactive({
     ],
   }
 });
-
 
 
 const hasMatch = ref(false)

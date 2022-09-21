@@ -251,6 +251,7 @@
 <script setup>
 import {listMatch, getMatch} from "@/api/match/history/match";
 import ImagePreview from "@/components/ImagePreview";
+import {onMounted} from "vue";
 
 const {proxy} = getCurrentInstance();
 
@@ -366,5 +367,8 @@ function handleDownload(resource){
   proxy.$download.resource(resource)
 }
 
-getList();
+onMounted(()=>{
+  console.log("666")
+  getList()
+})
 </script>
