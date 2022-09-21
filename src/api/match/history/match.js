@@ -42,3 +42,11 @@ export function delMatch(id) {
     method: 'delete'
   })
 }
+
+// 查询当前赛事
+export function getCurrentMatch() {
+  return request({
+    url: '/match/history/getCurrentMatch/',
+    method: 'get'
+  })
+}

@@ -249,7 +249,7 @@
 </template>
 
 <script setup>
-import {listMatch, getMatch, delMatch, addMatch, updateMatch} from "@/api/match/history/match";
+import {listMatch, getMatch} from "@/api/match/history/match";
 import ImagePreview from "@/components/ImagePreview";
 
 const {proxy} = getCurrentInstance();
