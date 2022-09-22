@@ -19,7 +19,6 @@
 <script setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, shallowRef, watch} from 'vue'
-import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
 import {getToken} from "@/utils/auth";
 
 const emit = defineEmits();
