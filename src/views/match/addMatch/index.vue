@@ -44,7 +44,7 @@
             <el-input v-model="form.name" placeholder="请输入大赛名称"/>
           </el-form-item>
           <el-form-item label="大赛logo">
-            <ImageUpload :model-value="form.logo"/>
+            <ImageUpload :limit="1" v-model="form.logo"/>
           </el-form-item>
           <el-form-item label="大赛时间" required>
             <el-col :span="11">
@@ -87,7 +87,6 @@
 import {getCurrentInstance, onMounted} from "vue";
 import {getCurrentMatch, addMatch} from "@/api/match/history/match";
 
-import ImageUpload from "@/components/ImageUpload";
 import {ElLoading} from "element-plus";
 import {useRouter} from "vue-router";
 

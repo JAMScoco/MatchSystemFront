@@ -45,29 +45,31 @@
           v-hasPermi="['school:news:remove']"
         >删除</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Download"
-          @click="handleExport"
-          v-hasPermi="['school:news:export']"
-        >导出</el-button>
-      </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="newsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="标题" align="center" prop="title" />
-      <el-table-column label="封面图片" align="center" prop="picture" width="100">
+      <el-table-column label="序号" type="index" width="55"/>
+      <el-table-column label="标题" align="center" prop="title" width="260"/>
+      <el-table-column label="封面图片" align="center" prop="picture" width="60">
         <template #default="scope">
           <image-preview :src="scope.row.picture" :width="50" :height="50"/>
         </template>
       </el-table-column>
-      <el-table-column label="发布时间" align="center" prop="pulishTime" width="180">
+      <el-table-column label="类型" align="center" prop="type" width="100">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.pulishTime, '{y}-{m}-{d}') }}</span>
+          {{scope.row.type === 0?'大赛动态':'院系动态'}}
+        </template>
+      </el-table-column>
+      <el-table-column label="发布时间" align="center" prop="createTime" width="180">
+        <template #default="scope">
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="最后修改时间" align="center" prop="updateTime" width="180">
+        <template #default="scope">
+          <span>{{ parseTime(scope.row.updateTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
@@ -88,7 +90,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -104,10 +106,10 @@
           <el-input v-model="form.title" placeholder="请输入标题" />
         </el-form-item>
         <el-form-item label="内容">
-          <Editor/>
+          <Editor v-model="form.content"/>
         </el-form-item>
         <el-form-item label="封面图片">
-          <ImageUpload v-model="form.picture"/>
+          <ImageUpload v-model="form.picture" :limit="1"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
@@ -185,7 +187,7 @@ function reset() {
   form.value = {
     id: null,
     title: null,
-    content: null,
+    content: '',
     picture: null,
     pulishTime: null,
     type: null,
@@ -261,7 +263,8 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _ids = row.id || ids.value;
-  proxy.$modal.confirm('是否确认删除动态管理编号为"' + _ids + '"的数据项？').then(function() {
+  console.log(row)
+  proxy.$modal.confirm('是否确认删除动态？').then(function() {
     return delNews(_ids);
   }).then(() => {
     getList();
