@@ -2,7 +2,7 @@
   <div class="father">
     <el-row>
       <el-col :span="12">
-        <el-image :src="news.picture" style="width: 90%;height: 80%;margin-top: 10%" alt=""/>
+        <el-image :src="'/dev-api'+news.picture" fit="cover" style="width: 150px;height: 150px;margin-top: 10%"/>
       </el-col>
       <el-col :span="12">
         <div style="padding-top: 5%;padding-right: 10%">

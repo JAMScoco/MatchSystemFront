@@ -20,6 +20,7 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, shallowRef, watch} from 'vue'
 import {getToken} from "@/utils/auth";
+import {Toolbar,Editor} from "@wangeditor/editor-for-vue";
 
 const emit = defineEmits();
 

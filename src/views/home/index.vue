@@ -14,7 +14,7 @@
     >
       <swiper-slide v-for="(item) in carouselList" :key="item.id">
         <a :href="item.link">
-          <img :src="item.url" alt="" style="width: 100%;height: 100%">
+          <img :src="'/dev-api'+item.url" alt="" style="width: 100%;height: 100%">
         </a>
       </swiper-slide>
     </swiper>
@@ -49,7 +49,7 @@
       <el-row>
         <el-col :span="12" :offset="6">
           <div style="display: flex;flex-direction: row;justify-content: center">
-            <template v-for="(item) in matchNewsList" :key="item.id">
+            <template v-for="(item) in departmentNewsList" :key="item.id">
               <MatchNewsPre :news="item"/>
             </template>
           </div>
@@ -69,13 +69,11 @@
                 <h3>时间安排</h3>
                 <el-timeline>
                   <el-timeline-item
-                      v-for="(activity, index) in activities"
+                      v-for="(activity, index) in matchTimes"
                       :key="index"
-                      :icon="activity.icon"
                       :type="activity.type"
                       :color="activity.color"
                       :size="activity.size"
-                      :hollow="activity.hollow"
                       :timestamp="activity.timestamp">
                     {{ activity.content }}
                   </el-timeline-item>
@@ -138,21 +136,21 @@
                     {{ matchInfo.expertCommittee }}
                   </el-descriptions-item>
                   <el-descriptions-item label="参赛组别">
-                    <template v-for="item in matchInfo.tracks">
+                    <template v-for="item in matchTracks">
                       <b>{{ item.name }}</b>：{{ item.groups }}
                       <br>
                       <br>
                     </template>
                   </el-descriptions-item>
                   <el-descriptions-item label="参赛类别">
-                    <template v-for="item in matchInfo.tracks">
+                    <template v-for="item in matchTracks">
                       <b>{{ item.name }}</b>：{{ item.categories }}
                       <br>
                       <br>
                     </template>
                   </el-descriptions-item>
                   <el-descriptions-item label="奖项设置" :span="2" label-align="center">
-                    <template v-for="item in matchInfo.tracks">
+                    <template v-for="item in matchTracks">
                       <b>{{ item.name }}</b>：{{ item.awardContent }}
                       <br>
                       <br>
@@ -177,118 +175,26 @@ import {Pagination, Navigation} from "swiper";
 
 const modules = ref([Pagination, Navigation])
 //轮播图列表
-const carouselList = ref([
-  {
-    id: '1',
-    url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F5f1b4b1640a5427c1d32a621c644b46081e9712e.jpg&refer=http%3A%2F%2Fi0.hdslb.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666445822&t=446f1b5f9c006da08e2015e48cf9bbb7',
-    link: '#',
-    sort: 1
-  },
-  {
-    id: '2',
-    url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F55a9ea8c2665e3cfff013a7bda63d87316599089.jpg&refer=http%3A%2F%2Fi0.hdslb.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666445822&t=737845acfc6bad92fb4782400e1f587b',
-    link: '#',
-    sort: 2
-  },
-])
+const carouselList = ref([])
 
 
 import MatchNewsPre from '@/components/home/MatchNewsPre'
 //大赛动态列表
-const matchNewsList = ref([
-  {
-    id: '1',
-    title: '发顺丰爽肤水还得回趟合议庭个人提供人挺好',
-    picture: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-427690dc45a015c017307b1fda57f578_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic2.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666452216&t=51c26447773fef1a3c71a0f0df144b36',
-    createTime: '2022-09-22 14:12:14'
-  },
-  {
-    id: '2',
-    title: '发顺丰爽肤水还得回趟合议庭个人提供人挺好',
-    picture: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-427690dc45a015c017307b1fda57f578_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic2.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666452216&t=51c26447773fef1a3c71a0f0df144b36',
-    createTime: '2022-09-22 14:12:14'
-  },
-  {
-    id: '3',
-    title: '发顺丰爽肤水还得回趟合议庭个人提供人挺好',
-    picture: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-427690dc45a015c017307b1fda57f578_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic2.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666452216&t=51c26447773fef1a3c71a0f0df144b36',
-    createTime: '2022-09-22 14:12:14'
-  }
-])
-
+const matchNewsList = ref([])
+//院系动态列表
+const departmentNewsList = ref([])
 
 //大赛时间流程信息
-const activities = [
-  {
-    content: '开始报名',
-    timestamp: '2018-04-12',
-    size: 'large',
-    type: 'primary',
-    color: '#0bbd87',
-  },
-  {
-    content: '报名截止',
-    timestamp: '2018-04-03 20:46',
-    color: '#0bbd87',
-  },
-  {
-    content: '院级评审开始',
-    timestamp: '2018-04-03 20:46',
-    size: 'large',
-    color: '#0bbd87',
-  },
-  {
-    content: '院级评审结束',
-    timestamp: '2018-04-03 20:46',
-    type: 'primary',
-    color: '#0bbd87',
-  },
-  {
-    content: '校级评审开始',
-    timestamp: '2018-04-03 20:46',
-  },
-  {
-    content: '校级评审结束',
-    timestamp: '2018-04-03 20:46',
-  }
-]
+const matchTimes =ref([])
 
 //大赛基本信息
-const matchInfo = {
-  organizingCommittee: "大赛设立组织委员会（简称大赛组委会），由教育部和重庆市人民政府主要负责同志担任主任，教育部和重庆市分管领导担任副主任，教育部高等教育司主要负责同志担任秘书长，有关部门（单位）负责人作为成员，负责大赛的组织实施。",
-  address: "耳朵hi噢if寄给我批输入及评估我居然敢为即为所wig将文件柜我加个",
-  postcode: "166562",
-  email: "88888888@qq.com",
-  expertCommittee: "大赛设立专家委员会，负责项目评审等工作。",
-  competitionNotice: null,
-  reviewRules: null,
-  studentOperationManual: null,
-  competitionGuide: null,
-  collegeSchoolOperationManual: null,
-  businessCooperationInvitation: null,
-  competitionReviewManual: null,
-  tracks: [
-    {
-      name: '高教主赛道',
-      groups: '研究生组：创意组、初创组、成长组',
-      categories: '新工科类、新医科类、新农科类、新文科类',
-      awardContent: '中国大陆参赛项目设金奖150个、银奖350个、铜奖1000个，中国港澳台地区参赛项目设金奖5个、银奖15个、铜奖另定，国际参赛项目设金奖50个、银奖100个、铜奖350个；设置最佳创意奖、最佳带动就业奖、最具商业价值奖等若干单项奖；获得金奖项目的指导教师为“优秀创新创业导师”（限前五名）。'
-    },
-    {
-      name: '青年红色筑梦之旅赛道',
-      groups: '公益组、创意组、创业组',
-      categories: '“互联网+”现代农业、“互联网+”制造业、“互联网+”信息技术服务、“互联网+”文化创意服务、“互联网+”社会服务',
-      awardContent: '设置金奖50个、银奖100个、铜奖350个；设置乡村振兴奖、最佳公益奖等单项奖；获得金奖项目的指导教师为“优秀创新创业导师”（限前五名）。'
-    },
-    {
-      name: '职教赛道',
-      groups: '创意组、创业组',
-      categories: '创新类、商业类、工匠类',
-      awardContent: '设置金奖50个、银奖100个、铜奖350个；获得金奖项目的指导教师为“优秀创新创业导师”（限前五名）。'
-    }
-  ],
-}
+const matchInfo = ref({})
 
+//主页赛道显示信息
+const matchTracks =ref([])
+
+
+import {computed, onMounted} from "vue";
 const hasMaterials = computed(()=>{
 
   return (matchInfo.competitionNotice != null)
@@ -300,9 +206,21 @@ const hasMaterials = computed(()=>{
       || (matchInfo.competitionReviewManual != null)
 })
 
+import {getIndexInfo} from "@/api/home";
+onMounted(()=>{
+  getIndexInfo().then(res =>{
+    var {matchInfo:info,carouselList:carousels,matchNewsList:matchNews,departmentNewsList:departmentNews,matchTimes:times,matchTracks:tracks} = res.data
+    matchInfo.value = info
+    carouselList.value = carousels
+    matchNewsList.value = matchNews
+    departmentNewsList.value = departmentNews
+    matchTimes.value = times
+    matchTracks.value = tracks
+  })
+})
+
 
 import {useRouter} from "vue-router";
-import {computed} from "vue";
 
 const router = useRouter()
 
