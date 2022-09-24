@@ -42,3 +42,12 @@ export function delTrack(id) {
     method: 'delete'
   })
 }
+
+//查询赛道组别类别列表请求
+export function getTrackInfo(data) {
+  return request({
+    url: '/match/track/getTrackInfo',
+    method: 'get',
+    data: data
+  })
+}

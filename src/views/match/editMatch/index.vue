@@ -15,7 +15,8 @@
           <TimeSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="赛道设置" name='2'>赛道设置
+        <el-tab-pane label="赛道设置" name='2'>
+          <TrackSetting/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="图片管理" name='3'>
@@ -40,8 +41,9 @@ import BaseInfoSetting from "@/components/match/setting/BaseInfoSetting";
 import ImageSetting from "../../../components/match/setting/ImageSetting";
 import TimeSetting from "../../../components/match/setting/TimeSetting";
 import {useRouter} from "vue-router";
+import TrackSetting from "../../../components/match/setting/TrackSetting";
 
-const activeName = ref('0')
+const activeName = ref('2')
 
 const data = reactive({
   form: {}
