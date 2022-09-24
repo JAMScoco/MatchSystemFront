@@ -33,7 +33,7 @@
 <script setup>
 import {updateMatch} from "../../../api/match/history/match";
 import {ElMessage} from "element-plus";
-import {onMounted, reactive,getCurrentInstance} from "vue";
+import {reactive,getCurrentInstance} from "vue";
 import {defineProps} from "vue";
 
 const props = defineProps({

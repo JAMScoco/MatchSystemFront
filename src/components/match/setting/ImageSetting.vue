@@ -35,7 +35,7 @@
               </el-row>
             </div>
             <div>
-              <el-table v-loading="loading" :data="carouselList" @selection-change="handleSelectionChange">
+              <el-table v-loading="loading" :data="carouselList">
                 <el-table-column type="index" label="序号" width="55" align="center"/>
                 <el-table-column label="图片url" align="center" prop="url" width="100">
                   <template #default="scope">

@@ -5,18 +5,20 @@
           v-model="activeName"
           type="card"
           class="demo-tabs"
-          @tab-click="handleClick">
-        <el-tab-pane label="基本信息" name='0' style="text-align: center">
+          @tab-click="handleClick"
+          style="text-align: center;">
+        <el-tab-pane label="基本信息" name='0'>
           <BaseInfoSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="时间设置" name='1'>时间设置
+        <el-tab-pane label="时间设置" name='1'>
+          <TimeSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="赛道设置" name='2'>赛道设置
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="图片管理" name='3' style="text-align: center">
+        <el-tab-pane label="图片管理" name='3'>
           <ImageSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
@@ -36,6 +38,8 @@ import {onMounted, reactive} from "vue";
 import {getCurrentMatch} from "../../../api/match/history/match";
 import BaseInfoSetting from "@/components/match/setting/BaseInfoSetting";
 import ImageSetting from "../../../components/match/setting/ImageSetting";
+import TimeSetting from "../../../components/match/setting/TimeSetting";
+import {useRouter} from "vue-router";
 
 const activeName = ref('0')
 
@@ -63,9 +67,11 @@ function nextPage(){
   }
 }
 
+const router = useRouter();
 onMounted(() => {
   getCurrentMatch().then(res => {
     if (res.data === undefined) {
+      console.log(45454)
       router.push("/match/addMatch")
     } else {
       form.value = res.data
