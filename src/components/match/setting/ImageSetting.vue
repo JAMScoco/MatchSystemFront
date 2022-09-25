@@ -5,15 +5,15 @@
         <el-col :span="1"></el-col>
         <el-col :span="23">
           <div style="font-size: small">
-            <el-form ref="formRefImage" :rules="rules" :model="form" label-width="170px">
+            <el-form ref="formRefImage" :model="form" label-width="170px">
               <el-row>
                 <el-col :span="10">
-                  <el-form-item label="大赛logo" prop="email">
+                  <el-form-item label="大赛logo">
                     <ImageUpload v-model="form.logo" :limit="1"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                  <el-form-item label="大赛微信公众号二维码" prop="email">
+                  <el-form-item label="大赛微信公众号二维码">
                     <ImageUpload v-model="form.qrCode" :limit="1"/>
                   </el-form-item>
                 </el-col>
