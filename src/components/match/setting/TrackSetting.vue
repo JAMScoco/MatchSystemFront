@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="6"></el-col>
         <el-col :span="12">
-          <p>请为当前赛事设置赛道组别</p>
+          <p>请为当前赛事设置赛道组别类别</p>
           <el-button type="primary" @click="showTrackDialog">增加赛道</el-button>
           <el-tree
               :data="trackList"
