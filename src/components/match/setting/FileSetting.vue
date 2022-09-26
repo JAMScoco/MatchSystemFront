@@ -4,9 +4,8 @@
       <el-row>
         <el-col :span="4"></el-col>
         <el-col :span="16">
-          <div>
+          <div style="margin-bottom: 10px">
             <el-button type="primary" @click="openUploadDialog">上传文件</el-button>
-
           </div>
           <el-table :data="tableDataList" style="width: 100%">
             <el-table-column label="文件类型" width="180">
@@ -45,8 +44,7 @@
         <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="confirmSubmit">确定</el-button
-        >
+        <el-butto type="primary" @click="confirmSubmit">确定</el-butto>
       </span>
         </template>
       </el-dialog>
@@ -112,9 +110,9 @@ function closeDialog() {
   fileFrom.fileType = null
   fileFrom.file = null
 }
-
+//下载按钮
 function handleDownload(row) {
-  console.log(row)
+  proxy.$download.resource(row.fileName)
 }
 /** 删除按钮 */
 function handleDelete(row) {
