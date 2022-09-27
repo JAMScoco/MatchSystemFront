@@ -52,14 +52,15 @@
           </el-form-item>
           <el-row :gutter="8">
             <el-col :span="10" :offset="4">
-              <b>其他成员：</b><el-button type="primary" @click="addMember">添加成员</el-button>
+              <b>其他成员：</b>
+              <el-button type="primary" @click="addMember">添加成员</el-button>
               <br>
               <br>
               <el-table :data="memberData" style="height: 200px" max-height="200">
-                <el-table-column fixed  label="姓名" width="100" align="center" prop="name"/>
-                <el-table-column label="学号" align="center" prop="sno" />
-                <el-table-column label="专业" align="center" prop="major" />
-                <el-table-column label="手机号" align="center" prop="phone" />
+                <el-table-column fixed label="姓名" width="100" align="center" prop="name"/>
+                <el-table-column label="学号" align="center" prop="sno"/>
+                <el-table-column label="专业" align="center" prop="major"/>
+                <el-table-column label="手机号" align="center" prop="phone"/>
                 <el-table-column fixed="right" label="操作" align="center" width="60">
                   <template #default="scope">
                     <el-button link type="danger" size="small" @click="deleteMember(scope.row)">删除</el-button>
@@ -68,22 +69,23 @@
               </el-table>
             </el-col>
             <el-col :span="10">
-              <b>指导老师：</b><el-button type="primary" @click="addTeacher">添加指导老师</el-button>
+              <b>指导老师：</b>
+              <el-button type="primary" @click="addTeacher">添加指导老师</el-button>
               <br>
               <br>
               <el-table :data="teacherData" style="height: 200px" max-height="200">
-                <el-table-column label="姓名" align="center" fixed prop="name" />
-                <el-table-column label="职工号码" align="center" prop="number" />
+                <el-table-column label="姓名" align="center" fixed prop="name"/>
+                <el-table-column label="职工号码" align="center" prop="number"/>
                 <el-table-column label="性别" align="center" prop="gender">
                   <template #default="scope">
                     <dict-tag :options="sys_user_sex" :value="scope.row.gender"/>
                   </template>
                 </el-table-column>
-                <el-table-column label="职称" align="center" prop="level" />
-                <el-table-column label="专业" align="center" prop="major" />
-                <el-table-column label="手机" align="center" prop="phone" />
+                <el-table-column label="职称" align="center" prop="level"/>
+                <el-table-column label="专业" align="center" prop="major"/>
+                <el-table-column label="手机" align="center" prop="phone"/>
                 <el-table-column fixed="right" label="操作" align="center" width="60">
-                  <template #default="scope" >
+                  <template #default="scope">
                     <el-button link type="danger" size="small" @click="deleteTeacher(scope.row)">删除</el-button>
                   </template>
                 </el-table-column>
@@ -119,10 +121,10 @@
     <el-dialog title="添加成员" v-model="memberOpen" width="500px" append-to-body>
       <el-form ref="memberRef" :model="memberForm" :rules="memberRules" label-width="80px">
         <el-form-item label="名字" prop="name">
-          <el-input v-model="memberForm.name" placeholder="请输入名字" />
+          <el-input v-model="memberForm.name" placeholder="请输入名字"/>
         </el-form-item>
         <el-form-item label="学号" prop="sno">
-          <el-input v-model="memberForm.sno" placeholder="请输入学号" />
+          <el-input v-model="memberForm.sno" placeholder="请输入学号"/>
         </el-form-item>
         <el-form-item label="院系" prop="departmentId">
           <el-select v-model="memberForm.departmentId" placeholder="请选择院系">
@@ -135,13 +137,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="专业" prop="major">
-          <el-input v-model="memberForm.major" placeholder="请输入专业" />
+          <el-input v-model="memberForm.major" placeholder="请输入专业"/>
         </el-form-item>
         <el-form-item label="手机号" prop="phone">
-          <el-input v-model="memberForm.phone" placeholder="请输入手机号" />
+          <el-input v-model="memberForm.phone" placeholder="请输入手机号"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="memberForm.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="memberForm.remark" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -156,13 +158,13 @@
     <el-dialog title="添加指导老师" v-model="teacherOpen" width="500px" append-to-body>
       <el-form ref="teacherRef" :model="teacherForm" :rules="teacherRules" label-width="80px">
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="teacherForm.name" placeholder="请输入姓名" />
+          <el-input v-model="teacherForm.name" placeholder="请输入姓名"/>
         </el-form-item>
         <el-form-item label="职工号码" prop="number">
-          <el-input v-model="teacherForm.number" placeholder="请输入职工号" />
+          <el-input v-model="teacherForm.number" placeholder="请输入职工号"/>
         </el-form-item>
         <el-form-item label="手机" prop="phone">
-          <el-input v-model="teacherForm.phone" placeholder="请输入手机" />
+          <el-input v-model="teacherForm.phone" placeholder="请输入手机"/>
         </el-form-item>
         <el-form-item label="性别" prop="gender">
           <el-select v-model="teacherForm.gender" placeholder="请选择性别">
@@ -175,7 +177,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="职称" prop="level">
-          <el-input v-model="teacherForm.level" placeholder="请输入职称" />
+          <el-input v-model="teacherForm.level" placeholder="请输入职称"/>
         </el-form-item>
         <el-form-item label="所属院系" prop="departmentId">
           <el-select v-model="teacherForm.departmentId" placeholder="请选择院系">
@@ -188,10 +190,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="专业" prop="major">
-          <el-input v-model="teacherForm.major" placeholder="请输入专业" />
+          <el-input v-model="teacherForm.major" placeholder="请输入专业"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="teacherForm.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="teacherForm.remark" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -205,27 +207,31 @@
 </template>
 
 <script setup>
-import {addWork} from "@/api/works/work";
+import {addWork, validCommit} from "@/api/works/work";
 import useTracks from "@/hooks/useTracks";
 import {getSchoolDepts} from "@/api/system/dept";
+import {onMounted} from "vue";
+
 const {proxy} = getCurrentInstance();
 
+//选择院系下拉框相关代码
 const departments = ref([])
 
 getSchoolDepts().then(res => {
   departments.value = res.data
 })
+
 //参与成员操作相关代码
 const memberData = reactive([])
 
-function addMember(){
+function addMember() {
   resetMember()
   memberOpen.value = true;
 }
 
-function deleteMember(row){
-  let tmp = memberData.filter(item=>{
-   return row !== item
+function deleteMember(row) {
+  let tmp = memberData.filter(item => {
+    return row !== item
   })
   memberData.splice(0)
   memberData.push(...tmp)
@@ -235,21 +241,22 @@ const memberOpen = ref(false)
 const memberForm = ref([])
 const memberRules = ref({
   name: [
-    { required: true, message: "名字不能为空", trigger: "blur" }
+    {required: true, message: "名字不能为空", trigger: "blur"}
   ],
   sno: [
-    { required: true, message: "学号不能为空", trigger: "blur" }
+    {required: true, message: "学号不能为空", trigger: "blur"}
   ],
   departmentId: [
-    { required: true, message: "请选择院系", trigger: "blur" }
+    {required: true, message: "请选择院系", trigger: "blur"}
   ],
   major: [
-    { required: true, message: "专业不能为空", trigger: "blur" }
+    {required: true, message: "专业不能为空", trigger: "blur"}
   ],
   phone: [
-    { required: true, message: "手机号不能为空", trigger: "blur" }
+    {required: true, message: "手机号不能为空", trigger: "blur"}
   ],
 })
+
 function submitMember() {
   proxy.$refs["memberRef"].validate(valid => {
     if (valid) {
@@ -261,11 +268,13 @@ function submitMember() {
     }
   });
 }
+
 // 成员取消按钮
 function cancelMember() {
   memberOpen.value = false;
   resetMember();
 }
+
 // 表单重置
 function resetMember() {
   memberForm.value = {
@@ -288,13 +297,13 @@ function resetMember() {
 //指导老师操作相关代码
 const teacherData = reactive([])
 
-function addTeacher(){
+function addTeacher() {
   resetMember()
   teacherOpen.value = true;
 }
 
-function deleteTeacher(row){
-  let tmp = teacherData.filter(item=>{
+function deleteTeacher(row) {
+  let tmp = teacherData.filter(item => {
     return row !== item
   })
   teacherData.splice(0)
@@ -305,24 +314,25 @@ const teacherOpen = ref(false)
 const teacherForm = ref([])
 const teacherRules = ref({
   name: [
-    { required: true, message: "姓名不能为空", trigger: "blur" }
+    {required: true, message: "姓名不能为空", trigger: "blur"}
   ],
   number: [
-    { required: true, message: "职工号码不能为空", trigger: "blur" }
+    {required: true, message: "职工号码不能为空", trigger: "blur"}
   ],
   gender: [
-    { required: true, message: "性别不能为空", trigger: "change" }
+    {required: true, message: "性别不能为空", trigger: "change"}
   ],
   level: [
-    { required: true, message: "职称不能为空", trigger: "blur" }
+    {required: true, message: "职称不能为空", trigger: "blur"}
   ],
   departmentId: [
-    { required: true, message: "请选择院系", trigger: "blur" }
+    {required: true, message: "请选择院系", trigger: "blur"}
   ],
   phone: [
-    { required: true, message: "手机号不能为空", trigger: "blur" }
+    {required: true, message: "手机号不能为空", trigger: "blur"}
   ],
 })
+
 function submitTeacher() {
   proxy.$refs["teacherRef"].validate(valid => {
     if (valid) {
@@ -334,11 +344,13 @@ function submitTeacher() {
     }
   });
 }
+
 // 成员取消按钮
 function cancelTeacher() {
   teacherOpen.value = false;
   resetTeacher();
 }
+
 // 表单重置
 function resetTeacher() {
   teacherForm.value = {
@@ -358,8 +370,10 @@ function resetTeacher() {
   proxy.resetForm("teacherRef");
 }
 
+//引入用户性别字典
 const {sys_user_sex} = proxy.useDict('sys_user_sex')
 
+//作品表单及提交
 const data = reactive({
   form: {},
   rules: {
@@ -388,7 +402,7 @@ const data = reactive({
 
 })
 
-const {form, rules } = toRefs(data);
+const {form, rules} = toRefs(data);
 
 /** 提交按钮 */
 function submitForm() {
@@ -411,6 +425,30 @@ const {
   optionsCategory
 } = useTracks
 
+import {useRouter} from "vue-router";
+import {ElMessageBox} from "element-plus";
+
+const router = useRouter()
+
+onMounted(() => {
+
+  validCommit().then(res => {
+    if (res.msg !== 'valid') {
+      ElMessageBox.alert(res.msg, "提示", {
+        type: 'error',
+        showClose: false,
+        callback: () => {
+            router.push('/index')
+        }
+      })
+    } else {
+      ElMessageBox.alert("作品必须在国家平台报名成功才能在本系统提交，请务必上传国家平台报名成功截图", "提示", {
+        type: 'info',
+        confirmButtonText: '好的'
+      })
+    }
+  })
+})
 
 </script>
 

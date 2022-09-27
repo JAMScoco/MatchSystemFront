@@ -94,10 +94,10 @@
 <script setup>
 
 import {getCurrentInstance, markRaw, onMounted, reactive} from "vue";
-import {addTrack, delTrack, getTrack, getTrackInfo, updateTrack} from "../../../api/match/track/track";
+import {addTrack, delTrack, getTrack, getTrackInfo, updateTrack} from "@/api/match/track/track";
 import {Delete, Edit, Plus,} from '@element-plus/icons-vue'
-import {addGroup, delGroup, getGroup, updateGroup} from "../../../api/match/group/group";
-import {addCategory, delCategory, getCategory, updateCategory} from "../../../api/match/category/category";
+import {addGroup, delGroup, getGroup, updateGroup} from "@/api/match/group/group";
+import {addCategory, delCategory, getCategory, updateCategory} from "@/api/match/category/category";
 import {ElMessage, ElMessageBox} from "element-plus";
 
 const {proxy} = getCurrentInstance()

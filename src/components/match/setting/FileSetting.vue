@@ -44,7 +44,7 @@
         <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-butto type="primary" @click="confirmSubmit">确定</el-butto>
+        <el-button type="primary" @click="confirmSubmit">确定</el-button>
       </span>
         </template>
       </el-dialog>

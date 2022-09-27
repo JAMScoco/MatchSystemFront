@@ -42,3 +42,14 @@ export function delWork(id) {
     method: 'delete'
   })
 }
+
+// 验证当前是否可以提交作品
+export function validCommit() {
+  return request({
+    url: '/works/work/validCommit',
+    method: 'get'
+  })
+}
+
+
+

@@ -31,8 +31,9 @@
 </template>
 
 <script setup>
-import {getTrackInfo} from "../../../api/match/track/track";
+import {getTrackInfo} from "@/api/match/track/track";
 import {onMounted} from "vue";
+import {Delete, Edit, Plus} from '@element-plus/icons-vue'
 
 const props = defineProps({
   form: [Object]

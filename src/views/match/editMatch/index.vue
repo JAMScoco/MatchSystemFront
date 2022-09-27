@@ -7,29 +7,30 @@
           class="demo-tabs"
           @tab-click="handleClick"
           style="text-align: center;">
+        <div style="height: 100px"></div>
         <el-tab-pane label="基本信息" name='0'>
           <BaseInfoSetting :form="form"/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="时间设置" name='1'>
           <TimeSetting :form="form"/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="赛道设置" name='2'>
           <TrackSetting/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="图片管理" name='3'>
           <ImageSetting :form="form"/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="文件上传" name='4'>
           <FileSetting :form="form"/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="评审模板" name='5'>
           <ReviewTemplateSetting :form="form"/>
-          <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
       </el-tabs>
     </div>
