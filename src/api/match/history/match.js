@@ -35,6 +35,24 @@ export function updateMatch(data) {
   })
 }
 
+// 新增赛事文件
+export function addMatchFile(data) {
+  return request({
+    url: '/match/history/addMatchFile',
+    method: 'put',
+    data: data
+  })
+}
+
+// 删除赛事文件
+export function delMatchFile(data) {
+  return request({
+    url: '/match/history/delMatchFile',
+    method: 'put',
+    data: data
+  })
+}
+
 // 删除赛事
 export function delMatch(id) {
   return request({
@@ -47,6 +65,14 @@ export function delMatch(id) {
 export function getCurrentMatch() {
   return request({
     url: '/match/history/getCurrentMatch/',
+    method: 'get'
+  })
+}
+
+// 查询当前赛事
+export function getFiles() {
+  return request({
+    url: '/match/history/getFiles/',
     method: 'get'
   })
 }

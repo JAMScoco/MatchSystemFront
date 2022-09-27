@@ -23,10 +23,12 @@
           <ImageSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="文件上传" name='4'>文件上传
+        <el-tab-pane label="文件上传" name='4'>
+          <FileSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="评审模板" name='5'>评审模板
+        <el-tab-pane label="评审模板" name='5'>
+          <ReviewTemplateSetting :form="form"/>
           <el-button type="primary" @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
       </el-tabs>
@@ -42,8 +44,10 @@ import ImageSetting from "../../../components/match/setting/ImageSetting";
 import TimeSetting from "../../../components/match/setting/TimeSetting";
 import {useRouter} from "vue-router";
 import TrackSetting from "../../../components/match/setting/TrackSetting";
+import FileSetting from "../../../components/match/setting/FileSetting";
+import ReviewTemplateSetting from "../../../components/match/setting/ReviewTemplateSetting";
 
-const activeName = ref('2')
+const activeName = ref('5')
 
 const data = reactive({
   form: {}
@@ -53,19 +57,17 @@ const {form} = toRefs(data)
 
 //点击标签页执行的方法
 const handleClick = (tab, event) => {
-  if ((tab.props.label === '基本信息' && event.type === 'click') || (tab.props.label === '图片管理' && event.type === 'click')) {
-    getCurrentMatch().then(res => {
-      form.value = res.data
-    })
-  }
+  getCurrentMatch().then(res => {
+    form.value = res.data
+  })
 }
 
 //设置下一项
-function nextPage(){
-  if(activeName.value === '5'){
+function nextPage() {
+  if (activeName.value === '5') {
     activeName.value = '0'
-  }else {
-    activeName.value = String(Number(activeName.value)+1)
+  } else {
+    activeName.value = String(Number(activeName.value) + 1)
   }
 }
 
