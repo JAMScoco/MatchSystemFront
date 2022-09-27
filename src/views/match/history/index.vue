@@ -67,7 +67,7 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button
-              type="text"
+              type="success"
               icon="Warning"
               @click="handleInfo(scope.row)"
               v-hasPermi="['match:history:query']"

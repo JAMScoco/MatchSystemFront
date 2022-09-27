@@ -50,3 +50,11 @@ export function delDept(deptId) {
     method: 'delete'
   })
 }
+
+// 获取学校院系信息
+export function getSchoolDepts() {
+  return request({
+    url: '/system/dept/getSchoolDepts',
+    method: 'get'
+  })
+}
