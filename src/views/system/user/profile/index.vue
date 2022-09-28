@@ -17,6 +17,14 @@
                         <svg-icon icon-class="user" />用户名称
                         <div class="pull-right">{{ state.user.userName }}</div>
                      </li>
+                    <li class="list-group-item">
+                      <svg-icon icon-class="people" />用户姓名
+                      <div class="pull-right">{{ state.user.trueName }}</div>
+                    </li>
+                    <li class="list-group-item" v-hasRole="['student']">
+                      <svg-icon icon-class="number" />学号
+                      <div class="pull-right">{{ state.user.sno }}</div>
+                    </li>
                      <li class="list-group-item">
                         <svg-icon icon-class="phone" />手机号码
                         <div class="pull-right">{{ state.user.phonenumber }}</div>
@@ -27,7 +35,7 @@
                      </li>
                      <li class="list-group-item">
                         <svg-icon icon-class="tree" />所属部门
-                        <div class="pull-right" v-if="state.user.dept">{{ state.user.dept.deptName }} / {{ state.postGroup }}</div>
+                        <div class="pull-right" v-if="state.user.dept">{{ state.user.dept.deptName }}</div>
                      </li>
                      <li class="list-group-item">
                         <svg-icon icon-class="peoples" />所属角色
