@@ -66,7 +66,7 @@
 </template>
 
 <script setup name="Work">
-import { listWork, getWork, delWork, addWork, updateWork } from "@/api/works/work";
+import { listWork } from "@/api/works/work";
 
 const { proxy } = getCurrentInstance();
 

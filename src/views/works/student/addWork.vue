@@ -2,6 +2,18 @@
   <div>
     <el-row style="margin-top: 50px">
       <el-col :span="13" :offset="4">
+        <el-row>
+          <el-col :span="7" :offset="3">
+            <b>负责人姓名：</b> {{ userInfo.trueName }}
+          </el-col>
+          <el-col :span="7">
+            <b> 学号：</b>{{ userInfo.sno }}
+          </el-col>
+          <el-col :span="7">
+            <b>手机号：</b>{{ userInfo.phonenumber }}
+          </el-col>
+        </el-row>
+        <br>
         <el-form ref="workRef" :model="form" :rules="rules" label-width="180px">
           <el-form-item label=" 作品名称" prop="name">
             <el-input v-model="form.name" placeholder="请输入 作品名称"/>
@@ -427,18 +439,23 @@ const {
 
 import {useRouter} from "vue-router";
 import {ElMessageBox} from "element-plus";
+import {getUserProfile} from "@/api/system/user";
 
 const router = useRouter()
 
-onMounted(() => {
+const userInfo = ref({})
 
+onMounted(() => {
+  getUserProfile().then(res => {
+    userInfo.value = res.data
+  })
   validCommit().then(res => {
     if (res.msg !== 'valid') {
       ElMessageBox.alert(res.msg, "提示", {
         type: 'error',
         showClose: false,
         callback: () => {
-            router.push('/index')
+          router.push('/index')
         }
       })
     } else {

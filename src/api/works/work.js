@@ -51,5 +51,14 @@ export function validCommit() {
   })
 }
 
+// 获取当前用户当前赛事作品详细信息
+export function currentWorkInfo() {
+  return request({
+    url: '/works/work/currentWorkInfo',
+    method: 'get'
+  })
+}
+
+
 
 
