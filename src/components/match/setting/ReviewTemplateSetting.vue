@@ -13,12 +13,8 @@
             <span class="custom-tree-node">
               <span>{{ data.name }}</span>
               <span>
-                <el-button size="small" type="primary" :icon="Plus" circle v-if="node.level === 2"
-                           @click="showGroupOrCategoryDialog(data)"/>
-                <el-button size="small" type="info" :icon="Edit" circle v-if="node.level !== 2" style="margin-left: 8px"
-                           @click="showEditDialog(node)"/>
-                <el-button size="small" type="danger" :icon="Delete" circle v-if="node.level !== 2"
-                           style="margin-left: 8px" @click="remove(node)"/>
+                <el-button size="small" type="info" :icon="Edit" circle v-if="node.level === 3" style="margin-left: 8px"
+                           @click="pushEditTemplate(data.id)"/>
               </span>
             </span>
             </template>
@@ -31,21 +27,31 @@
 </template>
 
 <script setup>
-import {getTrackInfo} from "@/api/match/track/track";
-import {onMounted} from "vue";
-import {Delete, Edit, Plus} from '@element-plus/icons-vue'
+import {getCurrentInstance, onMounted} from "vue";
+import {Edit} from '@element-plus/icons-vue'
+import {getTrackInfoWithoutCategory} from "../../../api/match/track/track";
+
 
 const props = defineProps({
   form: [Object]
 })
 
 const trackList = ref([])
+const {proxy} = getCurrentInstance()
+
+const router = useRouter()
+
 
 /** 查询赛道组别类别列表 */
 function getList() {
-  getTrackInfo().then(res => {
+  getTrackInfoWithoutCategory().then(res => {
     trackList.value = res.data
   })
+}
+
+//修改按钮
+function pushEditTemplate(id){
+  router.push("/match/editTemplate?group_id="+id)
 }
 
 onMounted(()=>{

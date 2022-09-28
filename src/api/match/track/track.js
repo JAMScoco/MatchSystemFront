@@ -51,3 +51,12 @@ export function getTrackInfo(data) {
     data: data
   })
 }
+
+//查询赛道组别类别列表请求
+export function getTrackInfoWithoutCategory(data) {
+  return request({
+    url: '/match/track/getTrackInfoWithoutCategory',
+    method: 'get',
+    data: data
+  })
+}
