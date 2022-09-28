@@ -16,16 +16,16 @@
           <TimeSetting :form="form"/>
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="赛道设置" name='2'>
-          <TrackSetting/>
-          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
-        </el-tab-pane>
-        <el-tab-pane label="图片管理" name='3'>
+        <el-tab-pane label="图片管理" name='2'>
           <ImageSetting :form="form"/>
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="文件上传" name='4'>
+        <el-tab-pane label="文件上传" name='3'>
           <FileSetting :form="form"/>
+          <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
+        </el-tab-pane>
+        <el-tab-pane label="赛道设置" name='4'>
+          <TrackSetting/>
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
         <el-tab-pane label="评审模板" name='5'>
