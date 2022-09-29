@@ -28,7 +28,7 @@
           <TrackSetting/>
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
-        <el-tab-pane label="评审模板" name='5'>
+        <el-tab-pane label="评审设置" name='5'>
           <ReviewTemplateSetting :form="form"/>
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
@@ -48,7 +48,7 @@ import TrackSetting from "../../../components/match/setting/TrackSetting";
 import FileSetting from "../../../components/match/setting/FileSetting";
 import ReviewTemplateSetting from "../../../components/match/setting/ReviewTemplateSetting";
 
-const activeName = ref('5')
+const activeName = ref('0')
 
 const data = reactive({
   form: {}
@@ -60,6 +60,7 @@ const {form} = toRefs(data)
 const handleClick = (tab, event) => {
   getCurrentMatch().then(res => {
     form.value = res.data
+    form.value.reviewNumber = res.data.reviewNumber === null ? 0 : res.data.reviewNumber
   })
 }
 
@@ -70,7 +71,12 @@ function nextPage() {
   } else {
     activeName.value = String(Number(activeName.value) + 1)
   }
+  handleClick()
 }
+
+onMounted(()=>{
+  handleClick()
+})
 
 const router = useRouter();
 onMounted(() => {

@@ -186,7 +186,6 @@ function submitForm() {
   proxy.$refs["templateRef"].validate(valid => {
     if (valid) {
       form.value.groupId = group_id
-      console.log(form.value)
       if (form.value.id != null) {
         updateTemplate(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
