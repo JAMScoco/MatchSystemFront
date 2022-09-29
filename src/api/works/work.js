@@ -35,6 +35,15 @@ export function updateWork(data) {
   })
 }
 
+// 审核作品
+export function checkWork(data) {
+  return request({
+    url: '/works/work/check',
+    method: 'put',
+    data: data
+  })
+}
+
 // 删除作品
 export function delWork(id) {
   return request({

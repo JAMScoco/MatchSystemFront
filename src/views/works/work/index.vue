@@ -95,6 +95,14 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button
+              v-if="scope.row.state === 0"
+              type="primary"
+              icon="Finished"
+              @click="worksCheck(scope.row)"
+              v-hasPermi="['works:work:edit']"
+          >审核
+          </el-button>
+          <el-button
               type="success"
               icon="Warning"
               @click="worksInfo(scope.row)"
@@ -112,13 +120,26 @@
         v-model:limit="queryParams.pageSize"
         @pagination="getList"
     />
+
+    <el-dialog v-model="checkDialogShow" title="审核" width="30%" center @closed="resetCheckWork">
+      <p style="text-align: center">请审核该作品的国家平台报名截图是否真实有效（单击图片放大）</p>
+      <br>
+      <ImagePreview :src="checkWorkData.screenshot"/>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="danger" @click="unpassCheck">不通过</el-button>
+        <el-button type="primary" @click="passCheck">通过</el-button>
+      </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup name="Work">
-import {listWork} from "@/api/works/work";
+import {checkWork, listWork} from "@/api/works/work";
 import useTracks from "@/hooks/useTracks";
 import {getSchoolDepts} from "@/api/system/dept";
+import ImagePreview from "@/components/ImagePreview";
 
 const {proxy} = getCurrentInstance();
 
@@ -172,6 +193,40 @@ function resetQuery() {
 /** 查看详情操作 */
 function worksInfo(row) {
   console.log(row)
+}
+
+const checkWorkData = reactive({})
+const checkDialogShow = ref(false)
+
+function worksCheck(work) {
+  checkWorkData.id = work.id
+  checkWorkData.screenshot = work.screenshot
+  checkDialogShow.value = true
+}
+
+function resetCheckWork() {
+  checkDialogShow.value = false
+  checkWorkData.id = null
+  checkWorkData.screenshot = null
+  checkWorkData.state = null
+  getList()
+}
+
+function unpassCheck(){
+  checkWorkData.state = -1
+  submitCheck()
+}
+
+function passCheck(){
+  checkWorkData.state = 1
+  submitCheck()
+}
+
+function submitCheck(){
+  checkWork(checkWorkData).then(res=>{
+    proxy.$modal.msgSuccess("操作成功");
+    resetCheckWork()
+  })
 }
 
 const {works_status} = proxy.useDict('works_status')
