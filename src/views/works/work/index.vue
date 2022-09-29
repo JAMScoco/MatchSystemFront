@@ -99,15 +99,13 @@
               type="primary"
               icon="Finished"
               @click="worksCheck(scope.row)"
-              v-hasPermi="['works:work:edit']"
-          >审核
+              v-hasPermi="['works:work:edit']">审核
           </el-button>
           <el-button
               type="success"
               icon="Warning"
-              @click="worksInfo(scope.row)"
-              v-hasPermi="['works:work:query']"
-          >详情
+              @click="worksInfo(scope.row.id)"
+              v-hasPermi="['works:work:query']">详情
           </el-button>
         </template>
       </el-table-column>
@@ -140,6 +138,7 @@ import {checkWork, listWork} from "@/api/works/work";
 import useTracks from "@/hooks/useTracks";
 import {getSchoolDepts} from "@/api/system/dept";
 import ImagePreview from "@/components/ImagePreview";
+import router from "../../../router";
 
 const {proxy} = getCurrentInstance();
 
@@ -191,8 +190,8 @@ function resetQuery() {
 }
 
 /** 查看详情操作 */
-function worksInfo(row) {
-  console.log(row)
+function worksInfo(id) {
+  router.push("/count/workDetail?id=" + id)
 }
 
 const checkWorkData = reactive({})
