@@ -82,7 +82,6 @@ const router = useRouter();
 onMounted(() => {
   getCurrentMatch().then(res => {
     if (res.data === undefined) {
-      console.log(45454)
       router.push("/match/addMatch")
     } else {
       form.value = res.data
