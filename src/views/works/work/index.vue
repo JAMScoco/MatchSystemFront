@@ -151,7 +151,6 @@ const ids = ref([]);
 const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
-const title = ref("");
 
 const data = reactive({
   queryParams: {
