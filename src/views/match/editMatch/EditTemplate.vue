@@ -8,7 +8,7 @@
               plain
               icon="Plus"
               @click="handleAdd"
-              v-hasPermi="['match:template:add']">新增
+              v-hasPermi="['match:history:edit']">新增
           </el-button>
         </el-col>
         <el-col :span="1.5">
@@ -18,7 +18,7 @@
               icon="Delete"
               :disabled="multiple"
               @click="handleDelete"
-              v-hasPermi="['match:template:remove']">删除
+              v-hasPermi="['match:history:edit']">删除
           </el-button>
         </el-col>
         <el-col :span="1.5">
@@ -35,14 +35,14 @@
                 type="text"
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
-                v-hasPermi="['match:template:edit']"
+                v-hasPermi="['match:history:edit']"
             >修改
             </el-button>
             <el-button
                 type="text"
                 icon="Delete"
                 @click="handleDelete(scope.row)"
-                v-hasPermi="['match:template:remove']"
+                v-hasPermi="['match:history:edit']"
             >删除
             </el-button>
           </template>
