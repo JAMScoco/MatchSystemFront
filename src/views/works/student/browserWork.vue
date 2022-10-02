@@ -20,6 +20,7 @@ currentWorkInfo().then(res=>{
       type: 'error',
       showClose: false,
       callback: () => {
+        proxy.$tab.closePage(router.currentRoute.value)
         router.push('/index')
       }
     })

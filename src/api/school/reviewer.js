@@ -27,4 +27,21 @@ export function updateReviewer(data) {
     })
 }
 
+// 修改评审专家
+export function genAssignData(data) {
+    return request({
+        url: '/system/reviewer/genAssignData',
+        method: 'post',
+        data: data
+    })
+}
+
+//检查当前是否可以分配评审任务
+export function checkCanAssign(){
+    return request({
+        url: '/system/reviewer/checkCanAssign',
+        method: 'get',
+    })
+}
+
 

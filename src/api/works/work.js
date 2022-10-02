@@ -68,6 +68,13 @@ export function currentWorkInfo() {
   })
 }
 
+// 获取当前赛事本院系待评审作品id
+export function waitReviewWorksDepartment() {
+  return request({
+    url: '/works/work/waitReviewWorksDepartment',
+    method: 'get'
+  })
+}
 
 
 
