@@ -416,19 +416,6 @@ const data = reactive({
 
 const {form, rules} = toRefs(data);
 
-/** 提交按钮 */
-function submitForm() {
-  proxy.$refs["workRef"].validate(valid => {
-    if (valid) {
-      form.value.memberList = [...memberData]
-      form.value.teacherList = [...teacherData]
-      addWork(form.value).then(response => {
-
-      });
-    }
-  })
-}
-
 //赛道组别类别关联下拉框
 const {
   trackChange,
@@ -444,6 +431,21 @@ import {getUserProfile} from "@/api/system/user";
 const router = useRouter()
 
 const userInfo = ref({})
+
+/** 提交按钮 */
+function submitForm() {
+  proxy.$refs["workRef"].validate(valid => {
+    if (valid) {
+      form.value.memberList = [...memberData]
+      form.value.teacherList = [...teacherData]
+      addWork(form.value).then(response => {
+        proxy.$tab.closePage(router.currentRoute.value)
+        proxy.$modal.msgSuccess("提交成功");
+        router.push('/index')
+      });
+    }
+  })
+}
 
 onMounted(() => {
   getUserProfile().then(res => {
