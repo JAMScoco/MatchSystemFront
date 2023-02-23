@@ -66,7 +66,8 @@
 </template>
 
 <script setup>
-import {computed, watch} from "vue";
+import {computed, getCurrentInstance, ref, watch} from "vue";
+
 const {proxy} = getCurrentInstance();
 const router = useRouter()
 
@@ -83,7 +84,6 @@ checkCanAssign().then(res => {
     })
   }
 })
-
 
 
 const active = ref(1)
@@ -113,7 +113,7 @@ watch(active, (newVal) => {
   }
 })
 
-import {listReviewer, genAssignData, checkCanAssign} from "@/api/school/reviewer";
+import {listReviewer, genAssignData, delPreAssign, checkCanAssign, ensurePreAssign} from "@/api/school/reviewer";
 import {waitReviewWorksDepartment} from "@/api/works/work";
 import {getCurrentMatch} from "@/api/match/history/match";
 import {ElMessageBox} from "element-plus";
@@ -161,6 +161,7 @@ function handleSelection(selection) {
 
 const previewAssignData = ref([])
 const previewAssignHeader = ref([])
+const gen_key = ref('')
 
 function toStep3() {
 
@@ -178,17 +179,28 @@ function toStep3() {
   genAssignData(users).then(res => {
     previewAssignHeader.value.push(...res.data.previewAssignHeader)
     previewAssignData.value.push(...res.data.previewAssignData)
+    gen_key.value = res.data.key
   })
   active.value = 3
 }
 
 function backStep2() {
+  if (gen_key.value !== '') {
+    delPreAssign(gen_key.value).then(res => {
+      gen_key.value = ''
+    })
+  }
   selectionReviewer.value = []
   active.value = 2
 }
 
 function submitAssign() {
-  //TODO 确定生成
+  if (gen_key.value !== '') {
+    ensurePreAssign(gen_key.value).then(res => {
+      proxy.$modal.msgSuccess("评审任务已生成")
+      router.push("/task/view")
+    })
+  }
 }
 
 </script>

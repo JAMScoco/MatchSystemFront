@@ -27,12 +27,28 @@ export function updateReviewer(data) {
     })
 }
 
-// 修改评审专家
+// 生成预览数据
 export function genAssignData(data) {
     return request({
         url: '/system/reviewer/genAssignData',
         method: 'post',
         data: data
+    })
+}
+
+// 删除预览
+export function delPreAssign(key) {
+    return request({
+        url: `/system/reviewer/delPreAssign/${key}`,
+        method: 'post',
+    })
+}
+
+// 确认生成
+export function ensurePreAssign(key) {
+    return request({
+        url: `/system/reviewer/ensurePreAssign/${key}`,
+        method: 'post',
     })
 }
 
