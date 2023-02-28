@@ -29,7 +29,7 @@ getWork(id).then(res=>{
 
 function turnBack(){
   proxy.$tab.closePage(router.currentRoute.value)
-  router.push("/count/work")
+  router.back()
 }
 
 </script>

@@ -10,36 +10,20 @@ export function listScore(query) {
 }
 
 // 查询评审分值详细
-export function getScore(id) {
+export function getReviewTemplate(id) {
   return request({
-    url: '/work/score/' + id,
+    url: '/work/score/getReviewTemplate/' + id,
     method: 'get'
   })
 }
 
-// 新增评审分值
-export function addScore(data) {
+
+// 提交评审分值
+export function submitScore(data) {
   return request({
-    url: '/work/score',
+    url: '/work/score/submit',
     method: 'post',
     data: data
-  })
-}
-
-// 修改评审分值
-export function updateScore(data) {
-  return request({
-    url: '/work/score',
-    method: 'put',
-    data: data
-  })
-}
-
-// 删除评审分值
-export function delScore(id) {
-  return request({
-    url: '/work/score/' + id,
-    method: 'delete'
   })
 }
 

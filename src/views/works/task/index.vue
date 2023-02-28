@@ -12,11 +12,13 @@
           <template v-for="(item,index) in heads">
             <el-table-column :label="'分数'+(index+1)">
               <template #default="scope">
-                评审人：{{ scope.row['score'+index].trueName }}
-                <el-tag class="mx-1" size="large"  v-if="scope.row['score' + index].scoreDetail !== null">
-                 {{ scope.row['score' + index].scoreDetail}}
+                评审人：{{ scope.row['score' + index].trueName }}&nbsp;&nbsp;
+                <el-tag class="mx-1" size="large" type="success" v-if="scope.row['score' + index].scoreDetail !== null">
+                  已评分
                 </el-tag>
-                <el-tag class="mx-1" size="large" type="danger" v-if="scope.row['score' + index].scoreDetail === null">未评分</el-tag>
+                <el-tag class="mx-1" size="large" type="danger" v-else>
+                  未评分
+                </el-tag>
               </template>
             </el-table-column>
           </template>
