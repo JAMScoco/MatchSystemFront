@@ -76,5 +76,22 @@ export function waitReviewWorksDepartment() {
   })
 }
 
+// 作品评审结果管理列表
+export function getReviewResult() {
+    return request({
+        url: '/works/work/result',
+        method: 'get'
+    })
+}
+// 移动排名
+export function moveSort(data) {
+  return request({
+    url: '/works/work/moveSort',
+    method: 'post',
+    data: data
+  })
+}
+
+
 
 
