@@ -9,7 +9,10 @@
         </el-steps>
         <div class="content" v-if="active === 1">
           <h2>本次比赛本院待评审作品数量：{{ workCount }}</h2>
-          <h2>本次比赛每个作品需要评审数量：{{ reviewCount }}</h2>
+          <span>本次比赛每个作品需要评审数量：<el-input-number v-model="reviewCount" size="large" :disabled="modify"
+                                                              :min="1"/> </span>
+          <br>
+          <br>
           <span>设置每位评审专家预计评审数量：<el-input-number v-model="taskNumber" :step="5" size="large"
                                                               :min="1"/> </span>
           <br>
@@ -67,6 +70,11 @@
 
 <script setup>
 import {computed, getCurrentInstance, ref, watch} from "vue";
+import {listReviewer, genAssignData, delPreAssign, checkCanAssign, ensurePreAssign} from "@/api/school/reviewer";
+import {waitReviewWorks} from "@/api/works/work";
+import {queryReviewCount} from "@/api/match/history/match";
+import {ElMessageBox} from "element-plus";
+import {useRouter} from "vue-router";
 
 const {proxy} = getCurrentInstance();
 const router = useRouter()
@@ -90,13 +98,17 @@ const active = ref(1)
 
 //待评审作品数量
 const workCount = ref(0)
-waitReviewWorksDepartment().then(res => {
+waitReviewWorks().then(res => {
   workCount.value = res.data.length
 })
 //每个作品需要评审数量
 const reviewCount = ref(5)
-getCurrentMatch().then(res => {
-  reviewCount.value = res.data.reviewNumber
+const modify = ref(false)
+
+queryReviewCount().then(res => {
+  reviewCount.value = res.data.count
+  modify.value = res.data.modify
+
 })
 //每个专家任务数量
 const taskNumber = ref(50)
@@ -112,12 +124,6 @@ watch(active, (newVal) => {
     getList()
   }
 })
-
-import {listReviewer, genAssignData, delPreAssign, checkCanAssign, ensurePreAssign} from "@/api/school/reviewer";
-import {waitReviewWorksDepartment} from "@/api/works/work";
-import {getCurrentMatch} from "@/api/match/history/match";
-import {ElMessageBox} from "element-plus";
-import {useRouter} from "vue-router";
 
 const {reviewer_is_school} = proxy.useDict("reviewer_is_school");
 
@@ -176,7 +182,7 @@ function toStep3() {
       trueName: item.trueName
     })
   })
-  genAssignData(users).then(res => {
+  genAssignData(users,{reviewCount:reviewCount.value}).then(res => {
     previewAssignHeader.value.push(...res.data.previewAssignHeader)
     previewAssignData.value.push(...res.data.previewAssignData)
     gen_key.value = res.data.key

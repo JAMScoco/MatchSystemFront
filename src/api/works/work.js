@@ -68,10 +68,10 @@ export function currentWorkInfo() {
   })
 }
 
-// 获取当前赛事本院系待评审作品id
-export function waitReviewWorksDepartment() {
+// 获取当前赛事待评审作品id
+export function waitReviewWorks() {
   return request({
-    url: '/works/work/waitReviewWorksDepartment',
+    url: '/works/work/waitReviewWorks',
     method: 'get'
   })
 }
@@ -89,6 +89,13 @@ export function moveSort(data) {
     url: '/works/work/moveSort',
     method: 'post',
     data: data
+  })
+}
+
+export function recommendWork(id) {
+  return request({
+    url: `/works/work/recommend/${id}`,
+    method: 'post',
   })
 }
 

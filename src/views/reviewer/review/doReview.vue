@@ -34,9 +34,12 @@
 
 <script setup>
 import {useRouter} from "vue-router";
-import {computed, getCurrentInstance, ref} from "vue";
+import {computed, getCurrentInstance, markRaw, ref} from "vue";
 
 import {getReviewTemplate, submitScore} from "@/api/works/score";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {Delete} from "@element-plus/icons-vue";
+import {delTrack} from "@/api/match/track/track";
 
 const router = useRouter()
 const {proxy} = getCurrentInstance()
@@ -62,18 +65,39 @@ const totalGoal = computed(() => {
 })
 
 function submit() {
+  ElMessageBox.confirm(
+      `您为该作品评审总分为${totalGoal.value}分，一旦提交无法修改，确定提交吗？`,
+      '提示',
+      {
+        confirmButtonText: '提交',
+        cancelButtonText: '再想想',
+        type: 'warning'
+      }
+  ).then(() => {
+    doSubmit()
+  })
+      .catch(() => {
+        ElMessage({
+          type: 'info',
+          message: '已取消',
+        })
+      })
+
+}
+
+function doSubmit() {
   let data = {}
   data.total = totalGoal.value
   let details = []
   reviewTemplate.value.forEach(item => {
     let i = {
       templateId: item.id,
-      goal: item.goal === undefined?0:item.goal
+      goal: item.goal === undefined ? 0 : item.goal
     }
     details.push(i)
   })
   data.details = details
-  submitScore({id:id,details:JSON.stringify(data)}).then(res => {
+  submitScore({id: id, details: JSON.stringify(data)}).then(res => {
     back()
   })
 

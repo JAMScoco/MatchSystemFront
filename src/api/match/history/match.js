@@ -78,7 +78,7 @@ export function getFiles() {
 }
 
 
-// 查询当前赛事
+// 查询当前赛事推荐名额
 export function queryRecommendNum() {
   return request({
     url: '/match/history/queryRecommendNum/',
@@ -90,5 +90,12 @@ export function submitRecommendNum(data) {
     url: '/match/history/saveRecommendNum',
     method: 'post',
     params: data
+  })
+}
+
+export function queryReviewCount() {
+  return request({
+    url: '/match/history/queryReviewCount/',
+    method: 'get'
   })
 }

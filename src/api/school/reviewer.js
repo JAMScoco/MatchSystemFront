@@ -28,11 +28,12 @@ export function updateReviewer(data) {
 }
 
 // 生成预览数据
-export function genAssignData(data) {
+export function genAssignData(data, param) {
     return request({
         url: '/system/reviewer/genAssignData',
         method: 'post',
-        data: data
+        data: data,
+        params: param
     })
 }
 
@@ -53,7 +54,7 @@ export function ensurePreAssign(key) {
 }
 
 //检查当前是否可以分配评审任务
-export function checkCanAssign(){
+export function checkCanAssign() {
     return request({
         url: '/system/reviewer/checkCanAssign',
         method: 'get',
