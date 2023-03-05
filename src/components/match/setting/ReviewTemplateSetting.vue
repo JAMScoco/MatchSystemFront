@@ -9,12 +9,24 @@
               <el-col :span="20">
                 <el-form v-model="props.form">
                   <el-form-item label="每个作品的评审人数：">
-                    <el-input-number v-model="props.form.reviewNumber" :min="0" :max="20"/>
+                    <el-input-number v-model="props.form.reviewNumber" :min="0" :max="50"/>
                   </el-form-item>
                 </el-form>
               </el-col>
               <el-col :span="4">
                 <el-button type="primary" @click="addReviewNumber">保存</el-button>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="20">
+                <el-form>
+                  <el-form-item label="评审推荐人数：">
+                    <el-input-number v-model="recommendNumber" :min="0" :max="50"/>
+                  </el-form-item>
+                </el-form>
+              </el-col>
+              <el-col :span="4">
+                <el-button type="primary" @click="saveRecommendNum">保存</el-button>
               </el-col>
             </el-row>
           </div>
@@ -46,7 +58,7 @@
 import {getCurrentInstance, onMounted} from "vue";
 import {Edit} from '@element-plus/icons-vue'
 import {getTrackInfoWithoutCategory} from "../../../api/match/track/track";
-import {updateMatch} from "../../../api/match/history/match";
+import {queryRecommendNum, submitRecommendNum, updateMatch} from "../../../api/match/history/match";
 
 
 const props = defineProps({
@@ -55,18 +67,18 @@ const props = defineProps({
 
 function addReviewNumber() {
   updateMatch(props.form).then(res => {
-    console.log(res)
     if (res) {
-      console.log(333)
       proxy.$message.success(res.msg)
     } else {
-      console.log(666)
       proxy.$message.error(res.msg)
     }
   })
 }
 
 const trackList = ref([])
+const recommendNumber = ref(0)
+
+
 const {proxy} = getCurrentInstance()
 
 const router = useRouter()
@@ -84,8 +96,25 @@ function pushEditTemplate(id) {
   router.push("/match/editTemplate?group_id=" + id)
 }
 
+function getRecommendNum() {
+  queryRecommendNum().then(res => {
+    recommendNumber.value = res.data
+  })
+}
+
+function saveRecommendNum() {
+  submitRecommendNum({quota:recommendNumber.value}).then(res=>{
+    if(res.code === 200){
+      proxy.$message.success(res.msg)
+    } else {
+      proxy.$message.error(res.msg)
+    }
+  })
+}
+
 onMounted(() => {
   getList()
+  getRecommendNum()
 })
 
 </script>

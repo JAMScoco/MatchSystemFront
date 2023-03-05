@@ -76,3 +76,19 @@ export function getFiles() {
     method: 'get'
   })
 }
+
+
+// 查询当前赛事
+export function queryRecommendNum() {
+  return request({
+    url: '/match/history/queryRecommendNum/',
+    method: 'get'
+  })
+}
+export function submitRecommendNum(data) {
+  return request({
+    url: '/match/history/saveRecommendNum',
+    method: 'post',
+    params: data
+  })
+}
