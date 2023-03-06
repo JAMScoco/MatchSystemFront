@@ -34,3 +34,11 @@ export function getScoreDetails() {
     method: 'get',
   })
 }
+
+export function getGoalDetail(workId) {
+  return request({
+    url: `/work/score/getGoalDetail/${workId}`,
+    method: 'get',
+  })
+}
+

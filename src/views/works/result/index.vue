@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-col :offset="10" :span="8">
-        <h3>已推荐/推荐名额：{{hasRecommended}}/{{recommendNum}}</h3>
+        <h3>已推荐/推荐名额：{{ hasRecommended }}/{{ recommendNum }}</h3>
       </el-col>
     </el-row>
     <br>
@@ -19,7 +19,7 @@
       <el-table-column label="类别" align="center" prop="categoryName" width="150"/>
       <el-table-column label="平均分" align="center" prop="departmentAverageScore" width="100">
         <template #default="scope">
-          {{scope.row.schoolAverageScore === null?scope.row.departmentAverageScore:scope.row.schoolAverageScore}}
+          {{ scope.row.schoolAverageScore === null ? scope.row.departmentAverageScore : scope.row.schoolAverageScore }}
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
@@ -29,6 +29,7 @@
                      type="primary" plain>作品详情
           </el-button>
           <el-button size="small" icon="Link"
+                     @click="scoreDetails(scope.row.id)"
                      type="success" plain>得分详情
           </el-button>
           <el-button size="small" type="primary"
@@ -39,7 +40,9 @@
                      @click="moveDown(scope.row.id)"
                      icon="Bottom" round :disabled="scope.$index === data.length - 1">下移
           </el-button>
-          <el-tag style="marginLeft:10px" type="success" v-if="(scope.row.schoolAverageScore === null && scope.row.state === 2) || (scope.row.state === 3)">已推荐</el-tag>
+          <el-tag style="marginLeft:10px" type="success"
+                  v-if="(scope.row.schoolAverageScore === null && scope.row.state === 2) || (scope.row.state === 3)">已推荐
+          </el-tag>
           <el-button size="small"
                      type="success" icon="Position"
                      v-else
@@ -48,11 +51,24 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog v-model="checkDialogShow" title="得分详情" width="40%" center @closed="resetDetails">
+      <el-table :data="scoreDetailsData">
+        <el-table-column label="序号" type="index" width="55" align="center"/>
+        <el-table-column label="评审专家" align="center" prop="trueName" width="150"/>
+        <el-table-column label="总分" align="center">
+          <template #default="scope">
+            {{ JSON.parse(scope.row.scoreDetail).total}}
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
 import {getReviewResult, moveSort, recommendWork} from "@/api/works/work";
+import {getGoalDetail} from "@/api/works/score";
 import {ElMessageBox} from "element-plus";
 import {getCurrentInstance, ref} from "vue";
 import {useRouter} from "vue-router";
@@ -91,26 +107,26 @@ function getData() {
   })
 }
 
-function moveUp(id){
+function moveUp(id) {
   const option = {
-    workId:id,
-    type:'up'
+    workId: id,
+    type: 'up'
   }
-  moveSort(option).then(res=>{
-    if(res.code === 200){
+  moveSort(option).then(res => {
+    if (res.code === 200) {
       proxy.$modal.msgSuccess("移动成功");
     }
     getData()
   })
 }
 
-function moveDown(id){
+function moveDown(id) {
   const option = {
-    workId:id,
-    type:'down'
+    workId: id,
+    type: 'down'
   }
-  moveSort(option).then(res=>{
-    if(res.code === 200){
+  moveSort(option).then(res => {
+    if (res.code === 200) {
       proxy.$modal.msgSuccess("移动成功");
     }
     getData()
@@ -118,8 +134,8 @@ function moveDown(id){
 }
 
 function recommend(id) {
-  recommendWork(id).then(res=>{
-    if(res.code === 200){
+  recommendWork(id).then(res => {
+    if (res.code === 200) {
       proxy.$modal.msgSuccess("推荐成功");
     }
     getData()
@@ -129,6 +145,21 @@ function recommend(id) {
 /** 查看作品详情操作 */
 function worksInfo(id) {
   router.push("/count/workDetail?id=" + id)
+}
+
+const checkDialogShow = ref(false)
+const scoreDetailsData = ref([])
+
+function resetDetails() {
+  checkDialogShow.value = false
+  scoreDetailsData.value.length = 0
+}
+
+function scoreDetails(id) {
+  getGoalDetail(id).then(res => {
+    scoreDetailsData.value.push(...res.data)
+    checkDialogShow.value = true
+  })
 }
 
 getData()
