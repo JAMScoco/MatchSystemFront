@@ -14,6 +14,18 @@
           </el-col>
         </el-row>
         <br>
+        <el-row>
+          <el-col :span="7" :offset="3">
+            <b>身份：</b> {{ userInfo.level }}
+          </el-col>
+          <el-col :span="7">
+            <b> 院系：</b>{{ userInfo.dept == null?'':userInfo.dept.deptName }}
+          </el-col>
+          <!--          <el-col :span="7">-->
+          <!--            <b>手机号：</b>{{ userInfo.phonenumber }}-->
+          <!--          </el-col>-->
+        </el-row>
+        <br>
         <el-form ref="workRef" :model="form" :rules="rules" label-width="180px">
           <el-form-item label=" 作品名称" prop="name">
             <el-input v-model="form.name" placeholder="请输入 作品名称"/>
@@ -60,11 +72,11 @@
             </el-col>
           </el-row>
           <el-form-item label="作品概述" prop="overview">
-            <el-input v-model="form.overview" type="textarea" :rows="5" placeholder="请输入内容"/>
+            <el-input v-model="form.overview" type="textarea" :rows="7" placeholder="请输入内容"/>
           </el-form-item>
           <el-row :gutter="8">
             <el-col :span="10" :offset="4">
-              <b>其他成员：</b>
+              <b>团队成员：</b>
               <el-button type="primary" @click="addMember">添加成员</el-button>
               <br>
               <br>
@@ -108,13 +120,13 @@
           <br>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="作品报告" prop="report">
+              <el-form-item label="作品报告（商业计划书）" prop="report">
                 <file-upload :limit="1" v-model="form.report"/>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="作品附件" prop="attachment">
-                <file-upload :limit="1" v-model="form.attachment"/>
+              <el-form-item label="作品附件（视频、PPT等）" prop="attachment">
+                <file-upload :fileSize="100" :limit="1" v-model="form.attachment" :file-type="['mp4','ppt']"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -222,7 +234,6 @@
 import {addWork, validCommit} from "@/api/works/work";
 import useTracks from "@/hooks/useTracks";
 import {getSchoolDepts} from "@/api/system/dept";
-import {onMounted} from "vue";
 
 const {proxy} = getCurrentInstance();
 
@@ -447,28 +458,28 @@ function submitForm() {
   })
 }
 
-onMounted(() => {
-  getUserProfile().then(res => {
-    userInfo.value = res.data
-  })
-  validCommit().then(res => {
-    if (res.msg !== 'valid') {
-      ElMessageBox.alert(res.msg, "提示", {
-        type: 'error',
-        showClose: false,
-        callback: () => {
-          proxy.$tab.closePage(router.currentRoute.value)
-          router.push('/index')
-        }
-      })
-    } else {
-      ElMessageBox.alert("作品必须在国家平台报名成功才能在本系统提交，请务必上传国家平台报名成功截图", "提示", {
-        type: 'info',
-        confirmButtonText: '好的'
-      })
-    }
-  })
+
+getUserProfile().then(res => {
+  userInfo.value = res.data
 })
+validCommit().then(res => {
+  if (res.msg !== 'valid') {
+    ElMessageBox.alert(res.msg, "提示", {
+      type: 'error',
+      showClose: false,
+      callback: () => {
+        proxy.$tab.closePage(router.currentRoute.value)
+        router.push('/index')
+      }
+    })
+  } else {
+    ElMessageBox.alert("作品必须在国家平台报名成功才能在本系统提交，请务必上传国家平台报名成功截图", "提示", {
+      type: 'info',
+      confirmButtonText: '好的'
+    })
+  }
+})
+
 
 </script>
 

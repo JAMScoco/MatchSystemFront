@@ -7,20 +7,20 @@
           <el-form-item label="大赛名称" prop="name">
             <el-input v-model="form.name"/>
           </el-form-item>
-          <el-form-item label="地址" prop="address">
-            <el-input v-model="form.address"/>
-          </el-form-item>
-          <el-form-item label="邮编" prop="postcode">
-            <el-input v-model="form.postcode"/>
-          </el-form-item>
-          <el-form-item label="大赛邮箱" prop="email">
+          <el-form-item label="承办方" prop="email">
             <el-input v-model="form.email"/>
+          </el-form-item>
+          <el-form-item label="联系电话" prop="postcode">
+            <el-input v-model="form.postcode"/>
           </el-form-item>
           <el-form-item label="大赛组委会" prop="organizingCommittee">
             <el-input type="textarea" rows="6" v-model="form.organizingCommittee"/>
           </el-form-item>
           <el-form-item label="专家委员会" prop="expertCommittee">
             <el-input type="textarea" rows="6" v-model="form.expertCommittee"/>
+          </el-form-item>
+          <el-form-item label="地址" prop="address">
+            <el-input v-model="form.address"/>
           </el-form-item>
         </el-form>
         <el-button type="primary" @click="submitInfo(form)">保存</el-button>

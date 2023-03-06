@@ -4,7 +4,7 @@
       <el-col :span="4" :offset="4">
         <div style="display: flex;flex-direction: row">
           <img src="../assets/logo/logo.png"/>
-          <span style="margin-top: 20px;white-space: nowrap">全国大学生创业服务网</span>
+          <span style="margin-top: 20px;white-space: nowrap">长江大学大学生创业服务网</span>
         </div>
       </el-col>
       <el-col :span="2">
@@ -16,8 +16,15 @@
       <el-col :span="2">
         <router-link to="/home/news"><h3>学院动态</h3></router-link>
       </el-col>
-      <el-col :span="3" :offset="7" style="text-align: center;">
-        <p style="margin-top: 20px"><router-link to="/login">登录入口</router-link></p>
+
+      <el-col :span="1" :offset="6" style="text-align: center;">
+        <p style="margin-top: 20px"><router-link to="/login">登录</router-link></p>
+      </el-col>
+      <el-col :span="1"  style="text-align: center;">
+        <p style="margin-top: 20px"><router-link to="/register">注册</router-link></p>
+      </el-col>
+      <el-col :span="1"  style="text-align: center;">
+        <p style="margin-top: 20px"><router-link to="/login">管理入口</router-link></p>
       </el-col>
     </el-row>
     <router-view></router-view>
@@ -27,7 +34,7 @@
       </el-col>
       <el-col :span="7">
         <div style="margin-top: 35px;">
-          <a href="#">国家24365大学生就业服务平台</a>|
+          <a href="#">长江大学大学生就业服务平台</a>|
           <a href="#">长江大学 </a>|
           <a href="#">联系我们 </a>
           <p style="font-size: small">版权所有：教育部学生服务与素质发展中心（原全国高等学校学生信息咨询与就业指导中心）</p>

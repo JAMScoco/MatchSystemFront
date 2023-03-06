@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">大赛管理系统</h3>
       <el-form-item prop="username">
         <el-input 
           v-model="registerForm.username" 
@@ -78,6 +78,7 @@
 <script setup>
 import { ElMessageBox } from "element-plus";
 import { getCodeImg, register } from "@/api/login";
+import {useRouter} from "vue-router";
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -143,6 +144,7 @@ function handleRegister() {
 function getCode() {
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled;
+
     if (captchaEnabled.value) {
       codeUrl.value = "data:image/gif;base64," + res.img;
       registerForm.value.uuid = res.uuid;

@@ -81,10 +81,10 @@
                 <el-divider/>
                 <h3>联系方式</h3>
                 <el-descriptions :column="1">
-                  <el-descriptions-item label="邮编：">
+                  <el-descriptions-item label="联系电话：">
                     {{ matchInfo.postcode }}
                   </el-descriptions-item>
-                  <el-descriptions-item label="邮箱：">
+                  <el-descriptions-item label="承办方：">
                     {{ matchInfo.email }}
                   </el-descriptions-item>
                   <el-descriptions-item label="地址：">

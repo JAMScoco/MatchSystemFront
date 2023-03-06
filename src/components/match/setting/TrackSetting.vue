@@ -314,13 +314,13 @@ function submitForm() {
       if (form.value.id != null) {
         updateTrack(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
-          openGroupDialog.value = false;
+          open.value = false;
           getList();
         });
       } else {
         addTrack(form.value).then(response => {
           proxy.$modal.msgSuccess("新增成功");
-          openGroupDialog.value = false;
+          open.value = false;
           getList();
         });
       }

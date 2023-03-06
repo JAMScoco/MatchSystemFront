@@ -14,6 +14,18 @@
           </el-col>
         </el-row>
         <br>
+        <el-row>
+          <el-col :span="7" :offset="3">
+            <b>身份：</b> {{ props.form.level }}
+          </el-col>
+          <el-col :span="7">
+            <b> 院系：</b>{{ props.form.deptName }}
+          </el-col>
+          <!--          <el-col :span="7">-->
+          <!--            <b>手机号：</b>{{ userInfo.phonenumber }}-->
+          <!--          </el-col>-->
+        </el-row>
+        <br>
         <el-form ref="workRef" :model="props.form" disabled label-width="180px">
           <el-form-item label="作品名称" prop="name">
             <el-input v-model="props.form.name"/>
