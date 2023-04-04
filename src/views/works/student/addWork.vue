@@ -19,7 +19,7 @@
             <b>身份：</b> {{ userInfo.level }}
           </el-col>
           <el-col :span="7">
-            <b> 院系：</b>{{ userInfo.dept == null?'':userInfo.dept.deptName }}
+            <b> 院系：</b>{{ userInfo.dept == null ? '' : userInfo.dept.deptName }}
           </el-col>
           <!--          <el-col :span="7">-->
           <!--            <b>手机号：</b>{{ userInfo.phonenumber }}-->
@@ -30,9 +30,19 @@
           <el-form-item label=" 作品名称" prop="name">
             <el-input v-model="form.name" placeholder="请输入 作品名称"/>
           </el-form-item>
-          <el-form-item label="国家平台报名成功截图" prop="screenshot">
-            <image-upload :limit="1" v-model="form.screenshot"/>
-          </el-form-item>
+          <el-row>
+            <el-col :span="14">
+              <el-form-item label="国家平台报名成功截图" prop="screenshot">
+                <image-upload :limit="1" v-model="form.screenshot"/>
+              </el-form-item>
+            </el-col>
+            <el-col :span="2">
+              截图示例
+            </el-col>
+            <el-col :span="7">
+              <ImagePreview src="/profile/upload/截图示例.jpg"/>
+            </el-col>
+          </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label=" 作品赛道" prop="trackId">
