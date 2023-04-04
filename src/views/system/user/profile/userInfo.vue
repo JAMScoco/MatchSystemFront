@@ -4,10 +4,10 @@
       <el-input v-model="user.nickName" maxlength="30"/>
     </el-form-item>
     <el-form-item label="真实姓名" prop="trueName">
-      <el-input v-model="user.trueName" maxlength="30"/>
+      <el-input v-model="user.trueName" maxlength="30" :disabled="user.level ==='本科生在读' || user.level ==='研究生硕士在读' || user.level ==='研究生博士在读'"/>
     </el-form-item>
     <el-form-item label="身份" v-hasRole="['student']" prop="level">
-      <el-radio-group v-model="user.level">
+      <el-radio-group v-model="user.level" disabled>
         <el-radio label="本科生在读">本科生在读</el-radio>
         <el-radio label="研究生硕士在读">研究生硕士在读</el-radio>
         <el-radio label="研究生博士在读">研究生博士在读</el-radio>
@@ -15,19 +15,34 @@
         <el-radio label="校外生">校外生</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="学号" prop="sno" v-hasRole="['student']">
-      <el-input v-model="user.sno" maxlength="30"/>
+    <el-form-item label="学号" prop="sno" v-hasRole="['student']" v-if="user.level !== '校外生'">
+      <el-input v-model="user.sno" maxlength="30" :disabled="user.level ==='本科生在读' || user.level ==='研究生硕士在读' || user.level ==='研究生博士在读' || user.level ==='往届生'"/>
     </el-form-item>
-    <el-form-item label="所属院系" v-hasRole="['student']" prop="deptId">
-      <el-select v-model="user.deptId" placeholder="请选择院系">
-        <el-option
-            v-for="item in departments"
-            :key="item.deptId"
-            :label="item.deptName"
-            :value="item.deptId"
-        />
-      </el-select>
-    </el-form-item>
+    <el-row>
+      <el-col :span="6">
+        <el-form-item label="所属院系" v-hasRole="['student']" prop="deptId">
+          <el-select v-model="user.deptId" placeholder="请选择院系" disabled>
+            <el-option
+                v-for="item in departments"
+                :key="item.deptId"
+                :label="item.deptName"
+                :value="item.deptId"
+            />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item prop="major" label="专业" v-hasRole="['student']" v-if="user.level !== '校外生'">
+          <el-input v-model="user.major" :disabled="user.level ==='本科生在读' || user.level ==='研究生硕士在读' || user.level ==='研究生博士在读'"/>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item prop="domain" label="班级" v-hasRole="['student']" v-if="user.level === '本科生在读' || user.level === '往届生'">
+          <el-input v-model="user.domain" :disabled="user.level ==='本科生在读'"/>
+        </el-form-item>
+      </el-col>
+    </el-row>
+
     <el-form-item label="手机号码" prop="phonenumber">
       <el-input v-model="user.phonenumber" maxlength="11"/>
     </el-form-item>
@@ -47,7 +62,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item label="性别">
-      <el-radio-group v-model="user.sex">
+      <el-radio-group v-model="user.sex" :disabled="user.level ==='本科生在读' || user.level ==='研究生硕士在读' || user.level ==='研究生博士在读'">
         <el-radio label="0">男</el-radio>
         <el-radio label="1">女</el-radio>
       </el-radio-group>
@@ -82,6 +97,9 @@ const rules = ref({
   level: [{required: true, message: "身份必选", trigger: "blur"}],
   deptId: [{required: true, message: "院系必选", trigger: "blur"}],
   trueName: [{required: true, message: "真实姓名不能为空", trigger: "blur"}],
+  major: [{required: true, message: "专业不能为空", trigger: "blur"}],
+  domain: [{required: true, message: "班级不能为空", trigger: "blur"}],
+  sno: [{required: true, message: "学号不能为空", trigger: "blur"}],
   email: [{required: true, message: "邮箱地址不能为空", trigger: "blur"}, {
     type: "email",
     message: "请输入正确的邮箱地址",
