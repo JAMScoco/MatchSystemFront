@@ -7,6 +7,9 @@ import WorkInfo from '@/components/work/workInfo'
 import {currentWorkInfo} from "@/api/works/work";
 import {ElMessageBox} from "element-plus";
 import {useRouter} from "vue-router";
+import {getCurrentInstance,ref} from "vue";
+
+const {proxy} = getCurrentInstance()
 
 const form = ref({})
 
