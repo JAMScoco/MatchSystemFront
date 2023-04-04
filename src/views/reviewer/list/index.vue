@@ -36,7 +36,7 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-col :span="1.5">
+
           <el-button
               type="primary"
               plain
@@ -45,7 +45,14 @@
               v-hasPermi="['works:work:edit']"
           >新增
           </el-button>
-        </el-col>
+        <el-button
+            type="success"
+            plain
+            icon="Upload"
+            @click="handleImport"
+            v-hasPermi="['works:work:export']"
+        >批量导入
+        </el-button>
         <el-button
             type="warning"
             plain
@@ -131,6 +138,11 @@
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
+    </el-dialog>
+
+    <!--新增或修改评审专家对话框-->
+    <el-dialog title="批量导入评审专家" v-model="showImportDialog" width="600px" append-to-body>
+
     </el-dialog>
   </div>
 </template>
@@ -294,6 +306,11 @@ const departments = ref([])
 getSchoolDepts().then(res => {
   departments.value = res.data
 })
+
+const showImportDialog = ref(false)
+function handleImport() {
+  showImportDialog.value = true
+}
 
 getList()
 </script>

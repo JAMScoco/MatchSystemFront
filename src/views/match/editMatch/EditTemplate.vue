@@ -60,7 +60,7 @@
             <el-input v-model="form.content" type="textarea" rows="7"/>
           </el-form-item>
           <el-form-item label="分值" prop="score">
-            <el-input-number v-model="form.score" :min="1" :max="100" placeholder="请输入分值" />
+            <el-input-number v-model="form.score" :min="1" :max="100" :step="10" placeholder="请输入分值" />
           </el-form-item>
           <el-form-item label="备注">
             <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />

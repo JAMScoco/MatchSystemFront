@@ -61,7 +61,7 @@
     <div style="width: 100%;height: 1400px">
       <h1 style="text-align: center">大赛相关</h1>
       <el-row>
-        <el-col :span="12" :offset="6">
+        <el-col :span="20" :offset="2">
           <el-card>
             <el-row>
               <!--大赛流畅时间,联系方式,资料下载 -->

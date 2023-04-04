@@ -6,6 +6,15 @@
     <el-form-item label="真实姓名" prop="trueName">
       <el-input v-model="user.trueName" maxlength="30"/>
     </el-form-item>
+    <el-form-item label="身份" v-hasRole="['student']" prop="level">
+      <el-radio-group v-model="user.level">
+        <el-radio label="本科生在读">本科生在读</el-radio>
+        <el-radio label="研究生硕士在读">研究生硕士在读</el-radio>
+        <el-radio label="研究生博士在读">研究生博士在读</el-radio>
+        <el-radio label="往届生">往届生</el-radio>
+        <el-radio label="校外生">校外生</el-radio>
+      </el-radio-group>
+    </el-form-item>
     <el-form-item label="学号" prop="sno" v-hasRole="['student']">
       <el-input v-model="user.sno" maxlength="30"/>
     </el-form-item>
@@ -41,12 +50,6 @@
       <el-radio-group v-model="user.sex">
         <el-radio label="0">男</el-radio>
         <el-radio label="1">女</el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="身份" v-hasRole="['student']" prop="level">
-      <el-radio-group v-model="user.level">
-        <el-radio label="本科生">本科生</el-radio>
-        <el-radio label="研究生">研究生</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="个人简介">

@@ -99,3 +99,34 @@ export function queryReviewCount() {
     method: 'get'
   })
 }
+
+export function importInfo(data) {
+  return request({
+    url: '/school/info/importInfo/',
+    method: 'post',
+    params: data
+  })
+}
+
+export function importUndergraduate(data) {
+  return request({
+    url: '/school/info/importUndergraduate/',
+    method: 'post',
+    params: data
+  })
+}
+
+export function importGraduate(data) {
+  return request({
+    url: '/school/info/importGraduate/',
+    method: 'post',
+    params: data
+  })
+}
+
+export function queryFilePath(name) {
+  return request({
+    url: `/school/info/queryFilePath?name=${name}`,
+    method: 'get',
+  })
+}

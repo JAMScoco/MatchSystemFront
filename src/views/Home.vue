@@ -23,7 +23,7 @@
       <el-col :span="1"  style="text-align: center;">
         <p style="margin-top: 20px"><router-link to="/register">注册</router-link></p>
       </el-col>
-      <el-col :span="1"  style="text-align: center;">
+      <el-col :span="2"  style="text-align: center;">
         <p style="margin-top: 20px"><router-link to="/login">管理入口</router-link></p>
       </el-col>
     </el-row>
