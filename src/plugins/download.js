@@ -42,6 +42,23 @@ export default {
       }
     })
   },
+  previewPDF(resource) {
+    var url = baseURL + "/common/preview/pdf?resource=" + encodeURI(resource);
+    axios({
+      method: 'get',
+      url: url,
+      responseType: 'blob',
+      headers: { 'Authorization': 'Bearer ' + getToken() }
+    }).then(async (res) => {
+      const isLogin = await blobValidate(res.data);
+      if (isLogin) {
+        let url_ext = window.URL.createObjectURL(res.data)
+        window.open(url_ext)
+      } else {
+        this.printErrMsg(res.data);
+      }
+    })
+  },
   zip(url, name) {
     var url = baseURL + url
     axios({

@@ -131,7 +131,7 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="作品报告（商业计划书）" prop="report">
-                <file-upload :limit="1" v-model="form.report"/>
+                <file-upload :limit="1" v-model="form.report" :file-type="['pdf']"/>
               </el-form-item>
             </el-col>
             <el-col :span="12">

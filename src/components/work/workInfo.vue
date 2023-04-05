@@ -103,8 +103,8 @@
         <el-row>
           <el-col :span="10" :offset="4">
             <template v-if="props.form.report">
-              作品报告：
-              <el-button type="primary" @click="handleDownload(props.form.report)">点击下载</el-button>
+              作品报告（商业计划书）：
+              <el-button type="primary" @click="handlePreview(props.form.report)">点击查看</el-button>
             </template>
           </el-col>
           <el-col :span="10">
@@ -136,6 +136,12 @@ const props = defineProps({
 function handleDownload(res) {
   proxy.$download.resource(res)
 }
+
+function handlePreview(res) {
+  proxy.$download.previewPDF(res)
+}
+
+
 
 </script>
 
