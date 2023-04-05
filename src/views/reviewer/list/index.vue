@@ -125,10 +125,10 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="领域">
+        <el-form-item :label="domainLabel">
           <el-input v-model="form.domain" maxlength="100"/>
         </el-form-item>
-        <el-form-item label="职称">
+        <el-form-item label="职称/职务">
           <el-input v-model="form.level" maxlength="100"/>
         </el-form-item>
       </el-form>
@@ -152,6 +152,7 @@ import {getSchoolDepts} from "@/api/system/dept";
 import {addReviewer, listReviewer, updateReviewer} from "@/api/school/reviewer";
 import {resetUserPwd} from "@/api/system/user";
 import {getConfigKey} from "@/api/system/config";
+import {computed} from "vue";
 
 const {proxy} = getCurrentInstance();
 
@@ -199,6 +200,10 @@ function reset() {
   }
   proxy.resetForm("userRef")
 }
+
+const domainLabel = computed(() => {
+  return form.value.isSchool === '0'?'单位/学院':'擅长领域'
+})
 
 /** 取消按钮 */
 function cancel() {
