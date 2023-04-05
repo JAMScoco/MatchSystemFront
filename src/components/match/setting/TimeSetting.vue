@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="4"></el-col>
-      <el-col :span="16" style="text-align: center">
+      <el-col :span="3"></el-col>
+      <el-col :span="18" style="text-align: center">
         <el-form ref="formRefTime" :rules="rules" :model="form" label-width="200px">
           <el-row style="margin-bottom: 20px">
             <el-col :span="11">
@@ -106,7 +106,7 @@
           <el-button type="primary" @click="submitTime">保存</el-button>
         </el-form>
       </el-col>
-      <el-col :span="4"></el-col>
+      <el-col :span="3"></el-col>
     </el-row>
   </div>
 </template>

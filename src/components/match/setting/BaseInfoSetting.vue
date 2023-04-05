@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="6"></el-col>
-      <el-col :span="12" style="text-align: center">
+      <el-col :span="2"></el-col>
+      <el-col :span="20" style="text-align: center">
         <el-form ref="formRefInfo" :rules="rules" :model="form" label-width="120px">
           <el-form-item label="大赛名称" prop="name">
             <el-input v-model="form.name"/>
@@ -25,7 +25,7 @@
         </el-form>
         <el-button type="primary" @click="submitInfo(form)">保存</el-button>
       </el-col>
-      <el-col :span="6"></el-col>
+      <el-col :span="2"></el-col>
     </el-row>
   </div>
 </template>

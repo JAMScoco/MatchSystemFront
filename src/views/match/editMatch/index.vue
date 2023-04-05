@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>
       <el-tabs
           v-model="activeName"
           type="card"
@@ -33,7 +32,6 @@
           <el-button type="primary" plain @click="nextPage" style="margin: 10px 0">设置下一项</el-button>
         </el-tab-pane>
       </el-tabs>
-    </div>
   </div>
 </template>
 

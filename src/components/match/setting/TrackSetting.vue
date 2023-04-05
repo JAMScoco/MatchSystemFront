@@ -2,8 +2,8 @@
   <div>
     <div>
       <el-row>
-        <el-col :span="6"></el-col>
-        <el-col :span="12">
+        <el-col :span="2"></el-col>
+        <el-col :span="20">
           <p>请为当前赛事设置赛道组别类别</p>
           <el-button type="primary" @click="showTrackDialog">增加赛道</el-button>
           <el-tree
@@ -25,7 +25,7 @@
             </template>
           </el-tree>
         </el-col>
-        <el-col :span="6"></el-col>
+        <el-col :span="2"></el-col>
       </el-row>
     </div>
     <div>

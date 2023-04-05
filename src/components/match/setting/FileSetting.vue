@@ -2,8 +2,8 @@
   <div>
     <div>
       <el-row>
-        <el-col :span="4"></el-col>
-        <el-col :span="16">
+        <el-col :span="1"></el-col>
+        <el-col :span="22">
           <div style="margin-bottom: 10px">
             <el-button type="primary" @click="openUploadDialog">上传文件</el-button>
           </div>
@@ -26,7 +26,7 @@
             </el-table-column>
           </el-table>
         </el-col>
-        <el-col :span="4"></el-col>
+        <el-col :span="1"></el-col>
       </el-row>
     </div>
     <div>

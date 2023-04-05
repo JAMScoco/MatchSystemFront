@@ -2,8 +2,8 @@
   <div>
     <div>
       <el-row>
-        <el-col :span="6"></el-col>
-        <el-col :span="12">
+        <el-col :span="2"></el-col>
+        <el-col :span="20">
           <div>
             <el-row>
               <el-col :span="20">
@@ -48,7 +48,7 @@
             </el-tree>
           </div>
         </el-col>
-        <el-col :span="6"></el-col>
+        <el-col :span="2"></el-col>
       </el-row>
     </div>
   </div>
