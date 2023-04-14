@@ -40,7 +40,7 @@
 
     <!--院系动态-->
     <div style="width: 100%;height: 400px;background-color: #1c84c6;padding-top: 20px;color: white">
-      <h1 style="text-align: center">院系动态</h1>
+      <h1 style="text-align: center">学院动态</h1>
       <el-row>
         <el-col :offset="17">
           <router-link to="/home/news"><span style="font-size: small">更多→</span></router-link>
@@ -66,7 +66,7 @@
             <el-row>
               <!--大赛流畅时间,联系方式,资料下载 -->
               <el-col :span="8" style="padding-right: 10px">
-                <h3>时间安排</h3>
+                <h2>时间安排</h2>
                 <el-timeline>
                   <el-timeline-item
                       v-for="(activity, index) in matchTimes"
@@ -79,7 +79,7 @@
                   </el-timeline-item>
                 </el-timeline>
                 <el-divider/>
-                <h3>联系方式</h3>
+                <h2>联系方式</h2>
                 <el-descriptions :column="1">
                   <el-descriptions-item label="联系电话：">
                     {{ matchInfo.postcode }}
@@ -92,7 +92,7 @@
                   </el-descriptions-item>
                 </el-descriptions>
                 <el-divider/>
-                <h3>资料下载</h3>
+                <h2>资料下载</h2>
                 <div v-if="hasMaterials" class="material_download">
                   <div v-if="matchInfo.competitionNotice != null" class="material_download_item">
                     <a href="#">大赛通知</a>
@@ -121,7 +121,7 @@
 
               <!--大赛信息展示-->
               <el-col :span="16">
-                <h3>相关信息</h3>
+                <h2>相关信息</h2>
                 <el-descriptions
                     direction="vertical"
                     :column="2"

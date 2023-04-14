@@ -11,8 +11,8 @@
       <el-form-item label="身份" v-hasRole="['student']" prop="level">
         <el-radio-group v-model="user.level" disabled>
           <el-radio label="本科生在读">本科生在读</el-radio>
-          <el-radio label="研究生硕士在读">研究生硕士在读</el-radio>
-          <el-radio label="研究生博士在读">研究生博士在读</el-radio>
+          <el-radio label="研究生硕士在读">硕士研究生在读</el-radio>
+          <el-radio label="研究生博士在读">博士研究生在读</el-radio>
           <el-radio label="往届生">往届生</el-radio>
           <el-radio label="校外生">校外生</el-radio>
         </el-radio-group>

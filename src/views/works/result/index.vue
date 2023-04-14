@@ -33,10 +33,12 @@
                      type="success" plain>得分详情
           </el-button>
           <el-button size="small" type="primary"
+                     v-if="false"
                      @click="moveUp(scope.row.id)"
                      icon="Top" round :disabled="scope.$index === 0">上移
           </el-button>
           <el-button size="small" type="primary"
+                     v-if="false"
                      @click="moveDown(scope.row.id)"
                      icon="Bottom" round :disabled="scope.$index === data.length - 1">下移
           </el-button>

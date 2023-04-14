@@ -21,9 +21,6 @@
           <el-col :span="7">
             <b> 院系：</b>{{ userInfo.dept == null ? '' : userInfo.dept.deptName }}
           </el-col>
-          <!--          <el-col :span="7">-->
-          <!--            <b>手机号：</b>{{ userInfo.phonenumber }}-->
-          <!--          </el-col>-->
         </el-row>
         <br>
         <el-form ref="workRef" :model="form" :rules="rules" label-width="180px">
@@ -131,7 +128,7 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="作品报告（商业计划书）" prop="report">
-                <file-upload :limit="1" v-model="form.report" :file-type="['pdf']"/>
+                <file-upload :limit="1" :fileSize="30" v-model="form.report" :file-type="['pdf']"/>
               </el-form-item>
             </el-col>
             <el-col :span="12">

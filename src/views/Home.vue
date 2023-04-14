@@ -4,7 +4,7 @@
       <el-col :span="4" :offset="4">
         <div style="display: flex;flex-direction: row">
           <img src="../assets/logo/logo.png"/>
-          <span style="margin-top: 20px;white-space: nowrap">长江大学大学生创业服务网</span>
+          <span style="margin-top: 20px;white-space: nowrap;font-size: large">长江大学大学生创新创业大赛管理系统</span>
         </div>
       </el-col>
       <el-col :span="2">

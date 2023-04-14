@@ -33,6 +33,7 @@ import {getCurrentInstance, ref} from "vue";
 import {ElMessageBox} from "element-plus";
 import {getScoreDetails} from "@/api/works/score";
 import {useRouter} from "vue-router";
+import {checkCanAssign} from "@/api/school/reviewer";
 
 const {proxy} = getCurrentInstance();
 const router = useRouter()
@@ -41,9 +42,9 @@ const target = ref([])
 const heads = ref([])
 
 function init() {
-  getScoreDetails().then(res => {
-    if (res.code === 500) {
-      ElMessageBox.alert("当前没有进行中的赛事", "提示", {
+  checkCanAssign().then(res => {
+    if (res.msg === 'ok') {
+      ElMessageBox.alert('暂未生成评审任务', "提示", {
         type: 'error',
         showClose: false,
         callback: () => {
@@ -51,9 +52,22 @@ function init() {
           router.push('/index')
         }
       })
-    } else {
-      target.value.push(...res.data.target)
-      heads.value.push(...res.data.heads)
+    }else {
+      getScoreDetails().then(res => {
+        if (res.code === 500) {
+          ElMessageBox.alert("当前没有进行中的赛事", "提示", {
+            type: 'error',
+            showClose: false,
+            callback: () => {
+              proxy.$tab.closePage(router.currentRoute.value)
+              router.push('/index')
+            }
+          })
+        } else {
+          target.value.push(...res.data.target)
+          heads.value.push(...res.data.heads)
+        }
+      })
     }
   })
 }
