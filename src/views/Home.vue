@@ -1,20 +1,20 @@
 <template>
   <div class="content">
     <el-row class="head">
-      <el-col :span="4" :offset="4">
+      <el-col :span="4" :offset="2">
         <div style="display: flex;flex-direction: row">
-          <img src="../assets/logo/logo.png"/>
-          <span style="margin-top: 20px;white-space: nowrap;font-size: large">长江大学大学生创新创业大赛管理系统</span>
+          <img src="../assets/logo/logo.png" style="height: 50px;width: 50px;margin-top: 5px;margin-right: 10px"/>
+          <h3 style="margin-top: 20px;white-space: nowrap;">长江大学大学生创新创业大赛管理系统</h3>
         </div>
       </el-col>
-      <el-col :span="2">
-        <router-link to="/home/index"><h3 style="text-align: center">首页</h3></router-link>
+      <el-col :span="2" :offset="2">
+        <router-link to="/home/index"><h2 style="text-align: center">首页</h2></router-link>
       </el-col>
       <el-col :span="2">
-        <router-link to="/home/news"><h3>大赛动态</h3></router-link>
+        <router-link to="/home/news"><h2>大赛动态</h2></router-link>
       </el-col>
       <el-col :span="2">
-        <router-link to="/home/news"><h3>学院动态</h3></router-link>
+        <router-link to="/home/news"><h2>学院动态</h2></router-link>
       </el-col>
 
       <el-col :span="1" :offset="6" style="text-align: center;">
@@ -34,9 +34,9 @@
       </el-col>
       <el-col :span="7">
         <div style="margin-top: 35px;">
-          <a href="#">长江大学大学生就业服务平台</a>|
-          <a href="#">长江大学 </a>|
-          <a href="#">联系我们 </a>
+          <a href="https://www.yangtzeu.edu.cn/" target="_blank">长江大学创新创业官网</a>|
+          <a href="https://www.yangtzeu.edu.cn/" target="_blank">长江大学 </a>|
+          <a href="https://www.yangtzeu.edu.cn/" target="_blank">联系我们 </a>
           <p style="font-size: small">版权所有：教育部学生服务与素质发展中心（原全国高等学校学生信息咨询与就业指导中心）</p>
           <p style="font-size: small">京ICP备xxxxxxx号-1京公网安备xxxxxxxxxxxxxx号</p>
         </div>

@@ -19,9 +19,40 @@
       </swiper-slide>
     </swiper>
 
+
+    <!--过渡层-->
+    <div style="width: 100%;height: 200px;background-color: #1446a0;padding-top: 20px;color: white">
+      <h1 style="text-align: center;font-weight: bold">我敢闯&nbsp;&nbsp;我会创</h1>
+      <br>
+      <el-row>
+        <el-col :span="3" :offset="6">
+          <div style="text-align: center">
+            <el-button size="large" @click="toCyPage('https://cy.ncss.cn/')">&nbsp;&nbsp;全国官网&nbsp;&nbsp;
+            </el-button>
+          </div>
+        </el-col>
+        <el-col :span="3">
+          <div style="text-align: center">
+            <el-button size="large" @click="router.push('/login')">&nbsp;&nbsp;报名参赛&nbsp;&nbsp;</el-button>
+          </div>
+        </el-col>
+        <el-col :span="3">
+          <div style="text-align: center">
+            <el-button size="large" @click="router.push('/login')">&nbsp;&nbsp;专家评审&nbsp;&nbsp;</el-button>
+          </div>
+        </el-col>
+        <el-col :span="3">
+          <div style="text-align: center">
+            <el-button size="large" @click="router.push('/login')">&nbsp;&nbsp;管理入口&nbsp;&nbsp;</el-button>
+          </div>
+        </el-col>
+
+      </el-row>
+    </div>
+
     <!--赛事动态-->
     <div style="width: 100%;height: 400px">
-      <h1 style="text-align: center">赛事动态</h1>
+      <h1 style="text-align: center;font-weight: bold">赛事动态</h1>
       <el-row>
         <el-col :offset="17">
           <router-link to="/home/news"><span style="color: dodgerblue;font-size: small">更多→</span></router-link>
@@ -40,7 +71,7 @@
 
     <!--院系动态-->
     <div style="width: 100%;height: 400px;background-color: #1c84c6;padding-top: 20px;color: white">
-      <h1 style="text-align: center">学院动态</h1>
+      <h1 style="text-align: center;font-weight: bold">学院动态</h1>
       <el-row>
         <el-col :offset="17">
           <router-link to="/home/news"><span style="font-size: small">更多→</span></router-link>
@@ -59,7 +90,7 @@
 
     <!--大赛相关-->
     <div style="width: 100%;height: 1400px">
-      <h1 style="text-align: center">大赛相关</h1>
+      <h1 style="text-align: center;font-weight: bold">大赛相关</h1>
       <el-row>
         <el-col :span="20" :offset="2">
           <el-card>
@@ -185,17 +216,25 @@ const matchNewsList = ref([])
 const departmentNewsList = ref([])
 
 //大赛时间流程信息
-const matchTimes =ref([])
+const matchTimes = ref([])
 
 //大赛基本信息
 const matchInfo = ref({})
 
 //主页赛道显示信息
-const matchTracks =ref([])
+const matchTracks = ref([])
+
+function toCyPage(url) {
+  let a = document.createElement('a')
+  a.setAttribute('href', url)
+  a.setAttribute('target', '_blank')
+  a.click()
+}
 
 
 import {computed, onMounted} from "vue";
-const hasMaterials = computed(()=>{
+
+const hasMaterials = computed(() => {
 
   return (matchInfo.competitionNotice != null)
       || (matchInfo.reviewRules != null)
@@ -207,9 +246,17 @@ const hasMaterials = computed(()=>{
 })
 
 import {getIndexInfo} from "@/api/home";
-onMounted(()=>{
-  getIndexInfo().then(res =>{
-    var {matchInfo:info,carouselList:carousels,matchNewsList:matchNews,departmentNewsList:departmentNews,matchTimes:times,matchTracks:tracks} = res.data
+
+onMounted(() => {
+  getIndexInfo().then(res => {
+    var {
+      matchInfo: info,
+      carouselList: carousels,
+      matchNewsList: matchNews,
+      departmentNewsList: departmentNews,
+      matchTimes: times,
+      matchTracks: tracks
+    } = res.data
     matchInfo.value = info
     carouselList.value = carousels
     matchNewsList.value = matchNews
@@ -259,9 +306,8 @@ h3 {
   text-align: center
 }
 
-.labelText {
-  font-weight: bold;
-  background-color: red;
+>>> .el-descriptions__body .el-descriptions__table .el-descriptions__cell {
+  font-size: large;
 }
 
 </style>
