@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row style="margin-top: 50px">
-      <el-col :span="13" :offset="4">
+      <el-col :span="20" :offset="2">
         <el-row>
           <el-col :span="7" :offset="3">
             <b>负责人姓名：</b> {{ userInfo.trueName }}
@@ -106,15 +106,15 @@
               <br>
               <el-table :data="teacherData" style="height: 200px" max-height="200">
                 <el-table-column label="姓名" align="center" fixed prop="name"/>
-                <el-table-column label="职工号码" align="center" prop="number"/>
                 <el-table-column label="性别" align="center" prop="gender">
                   <template #default="scope">
                     <dict-tag :options="sys_user_sex" :value="scope.row.gender"/>
                   </template>
                 </el-table-column>
-                <el-table-column label="职称" align="center" prop="level"/>
-                <el-table-column label="专业" align="center" prop="major"/>
                 <el-table-column label="手机" align="center" prop="phone"/>
+                <el-table-column label="职工号码/身份证号" align="center" prop="number"/>
+                <el-table-column label="职称/职务" align="center" prop="level"/>
+                <el-table-column label="专业/擅长领域" align="center" prop="major"/>
                 <el-table-column fixed="right" label="操作" align="center" width="60">
                   <template #default="scope">
                     <el-button link type="danger" size="small" @click="deleteTeacher(scope.row)">删除</el-button>
@@ -144,6 +144,7 @@
         <div style="text-align: center">
           <el-button type="primary" @click="submitForm">提交</el-button>
         </div>
+        <el-divider/>
       </el-col>
     </el-row>
 
@@ -186,18 +187,12 @@
     </el-dialog>
 
     <!-- 添加或修改指导老师对话框 -->
-    <el-dialog title="添加指导老师" v-model="teacherOpen" width="500px" append-to-body>
-      <el-form ref="teacherRef" :model="teacherForm" :rules="teacherRules" label-width="80px">
-        <el-form-item label="姓名" prop="name">
+    <el-dialog title="添加指导老师" v-model="teacherOpen" width="600px" append-to-body>
+      <el-form ref="teacherRef" :model="teacherForm" :rules="teacherRules">
+        <el-form-item label="姓名" prop="name" label-width="100px">
           <el-input v-model="teacherForm.name" placeholder="请输入姓名"/>
         </el-form-item>
-        <el-form-item label="职工号码" prop="number">
-          <el-input v-model="teacherForm.number" placeholder="请输入职工号"/>
-        </el-form-item>
-        <el-form-item label="手机" prop="phone">
-          <el-input v-model="teacherForm.phone" placeholder="请输入手机"/>
-        </el-form-item>
-        <el-form-item label="性别" prop="gender">
+        <el-form-item label="性别" prop="gender" label-width="100px">
           <el-select v-model="teacherForm.gender" placeholder="请选择性别">
             <el-option
                 v-for="dict in sys_user_sex"
@@ -207,23 +202,51 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="职称" prop="level">
-          <el-input v-model="teacherForm.level" placeholder="请输入职称"/>
+        <el-form-item label="手机" prop="phone" label-width="100px">
+          <el-input v-model="teacherForm.phone" placeholder="请输入手机"/>
         </el-form-item>
-        <el-form-item label="所属院系" prop="departmentId">
-          <el-select v-model="teacherForm.departmentId" placeholder="请选择院系">
-            <el-option
-                v-for="item in departments"
-                :key="item.deptId"
-                :label="item.deptName"
-                :value="item.deptId"
-            />
-          </el-select>
+        <el-form-item label="是否为校内职工" label-width="120px">
+          <el-radio-group v-model="isSchool">
+            <el-radio label="0">是</el-radio>
+            <el-radio label="1">否</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="专业" prop="major">
-          <el-input v-model="teacherForm.major" placeholder="请输入专业"/>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <template v-if="isSchool === '0'">
+          <el-form-item label="职工号码" prop="number" label-width="100px">
+            <el-input v-model="teacherForm.number" placeholder="请输入职工号"/>
+          </el-form-item>
+          <el-form-item label="职称" prop="level" label-width="100px">
+            <el-input v-model="teacherForm.level" placeholder="请输入职称"/>
+          </el-form-item>
+          <el-form-item label="所属院系" prop="departmentId" label-width="100px">
+            <el-select v-model="teacherForm.departmentId" placeholder="请选择院系">
+              <el-option
+                  v-for="item in departments"
+                  :key="item.deptId"
+                  :label="item.deptName"
+                  :value="item.deptId"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="专业" prop="major" label-width="100px">
+            <el-input v-model="teacherForm.major" placeholder="请输入专业"/>
+          </el-form-item>
+        </template>
+        <template v-if="isSchool === '1'">
+          <el-form-item label="身份证号" prop="number" label-width="100px">
+            <el-input v-model="teacherForm.number" placeholder="请输入身份证号"/>
+          </el-form-item>
+          <el-form-item label="单位" prop="departmentId" label-width="100px">
+            <el-input v-model="teacherForm.departmentId" placeholder="请输入职称"/>
+          </el-form-item>
+          <el-form-item label="职称/职务" prop="level" label-width="100px">
+            <el-input v-model="teacherForm.level" placeholder="请输入职称"/>
+          </el-form-item>
+          <el-form-item label="擅长领域" prop="major" label-width="100px">
+            <el-input v-model="teacherForm.major" placeholder="请输入擅长领域"/>
+          </el-form-item>
+        </template>
+        <el-form-item label="备注" prop="remark" label-width="100px">
           <el-input v-model="teacherForm.remark" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
       </el-form>
@@ -241,6 +264,10 @@
 import {addWork, validCommit} from "@/api/works/work";
 import useTracks from "@/hooks/useTracks";
 import {getSchoolDepts} from "@/api/system/dept";
+import {useRouter} from "vue-router";
+import {ElMessageBox} from "element-plus";
+import {getUserProfile} from "@/api/system/user";
+import {getCurrentInstance, ref} from "vue";
 
 const {proxy} = getCurrentInstance();
 
@@ -327,6 +354,8 @@ function resetMember() {
 //指导老师操作相关代码
 const teacherData = reactive([])
 
+const isSchool = ref('0')
+
 function addTeacher() {
   resetMember()
   teacherOpen.value = true;
@@ -347,16 +376,16 @@ const teacherRules = ref({
     {required: true, message: "姓名不能为空", trigger: "blur"}
   ],
   number: [
-    {required: true, message: "职工号码不能为空", trigger: "blur"}
+    {required: true, message: "不能为空", trigger: "blur"}
   ],
   gender: [
     {required: true, message: "性别不能为空", trigger: "change"}
   ],
   level: [
-    {required: true, message: "职称不能为空", trigger: "blur"}
+    {required: true, message: "不能为空", trigger: "blur"}
   ],
   departmentId: [
-    {required: true, message: "请选择院系", trigger: "blur"}
+    {required: true, message: "不能为空", trigger: "blur"}
   ],
   phone: [
     {required: true, message: "手机号不能为空", trigger: "blur"}
@@ -441,10 +470,6 @@ const {
   optionsGroup,
   optionsCategory
 } = useTracks
-
-import {useRouter} from "vue-router";
-import {ElMessageBox} from "element-plus";
-import {getUserProfile} from "@/api/system/user";
 
 const router = useRouter()
 

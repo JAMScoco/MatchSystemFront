@@ -3,6 +3,8 @@
     <el-row>
       <el-col :span="18" :offset="3">
         <h1 style="text-align: center">评审情况</h1>
+        <el-switch v-model="switchShow" inactive-text="显示全部" active-text="仅显示未评分" @change="init"/>
+        <el-divider/>
         <el-table style="width: 100%" :data="target" border>
           <el-table-column label="参赛作品" width="180">
             <template #default="scope">
@@ -13,10 +15,11 @@
             <el-table-column :label="'分数'+(index+1)">
               <template #default="scope">
                 评审人：{{ scope.row['score' + index].trueName }}&nbsp;&nbsp;
-                <el-tag class="mx-1" size="large" type="success" v-if="scope.row['score' + index].scoreDetail !== null">
+                <el-tag class="mx-1" size="large" type="success"
+                        v-if="scope.row['score' + index].scoreDetail !== null && !switchShow">
                   已评分
                 </el-tag>
-                <el-tag class="mx-1" size="large" type="danger" v-else>
+                <el-tag class="mx-1" size="large" type="danger" v-if="scope.row['score' + index].scoreDetail === null">
                   未评分
                 </el-tag>
               </template>
@@ -41,6 +44,8 @@ const router = useRouter()
 const target = ref([])
 const heads = ref([])
 
+const switchShow = ref(false)
+
 function init() {
   checkCanAssign().then(res => {
     if (res.msg === 'ok') {
@@ -52,7 +57,7 @@ function init() {
           router.push('/index')
         }
       })
-    }else {
+    } else {
       getScoreDetails().then(res => {
         if (res.code === 500) {
           ElMessageBox.alert("当前没有进行中的赛事", "提示", {
@@ -64,6 +69,8 @@ function init() {
             }
           })
         } else {
+          target.value.length = 0
+          heads.value.length = 0
           target.value.push(...res.data.target)
           heads.value.push(...res.data.heads)
         }

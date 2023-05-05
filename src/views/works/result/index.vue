@@ -6,7 +6,12 @@
       </el-col>
     </el-row>
     <br>
-    <el-table v-loading="loading" :data="data" stripe>
+    <el-button type="primary" :disabled="recommendNum < selectedIds.length || selectedIds.length === 0"
+               @click="batchRecommend">批量推荐
+    </el-button>
+    <el-divider/>
+    <el-table v-loading="loading" :data="data" stripe @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"/>
       <el-table-column label="排序" width="55" align="center">
         <template #default="scope">
           {{ scope.row.schoolSort === null ? scope.row.departmentSort : scope.row.schoolSort }}
@@ -60,7 +65,7 @@
         <el-table-column label="评审专家" align="center" prop="trueName" width="150"/>
         <el-table-column label="总分" align="center">
           <template #default="scope">
-            {{ JSON.parse(scope.row.scoreDetail).total}}
+            {{ JSON.parse(scope.row.scoreDetail).total }}
           </template>
         </el-table-column>
       </el-table>
@@ -71,7 +76,7 @@
 <script setup>
 import {getReviewResult, moveSort, recommendWork} from "@/api/works/work";
 import {getGoalDetail} from "@/api/works/score";
-import {ElMessageBox} from "element-plus";
+import {ElMessageBox, ElLoading} from "element-plus";
 import {getCurrentInstance, ref} from "vue";
 import {useRouter} from "vue-router";
 import {queryRecommendNum} from "@/api/match/history/match";
@@ -141,6 +146,33 @@ function recommend(id) {
       proxy.$modal.msgSuccess("推荐成功");
     }
     getData()
+  })
+}
+
+function batchRecommend() {
+  const loading = ElLoading.service({
+    lock: true,
+    text: '批量推荐中',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+  for (let i = 0; i < selectedIds.value.length; i++) {
+    recommendWork(selectedIds.value[i]).then(res => {
+      if (i === selectedIds.value.length - 1) {
+        loading.close()
+        proxy.$modal.msgSuccess("推荐成功");
+        getData()
+        selectedIds.value.length = 0
+      }
+    })
+  }
+}
+
+const selectedIds = ref([])
+
+function handleSelectionChange(ids) {
+  selectedIds.value.length = 0
+  ids.forEach((item) => {
+    selectedIds.value.push(item.id)
   })
 }
 

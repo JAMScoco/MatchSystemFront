@@ -9,6 +9,13 @@ export function listScore(query) {
   })
 }
 
+export function indexInfo() {
+  return request({
+    url: '/work/score/indexInfo',
+    method: 'get',
+  })
+}
+
 // 查询评审分值详细
 export function getReviewTemplate(id) {
   return request({
