@@ -5,32 +5,35 @@
         <el-col :span="2"></el-col>
         <el-col :span="20">
           <div>
+            <el-divider>评审参数设置</el-divider>
+            <p style="font-weight: bold;font-size: large">提示：设置完成后请点击保存按钮</p>
             <el-row>
-              <el-col :span="20">
+              <el-col :span="8" :offset="6">
                 <el-form v-model="props.form">
                   <el-form-item label="每个作品的评审人数：">
                     <el-input-number v-model="props.form.reviewNumber" :min="0" :max="50"/>
                   </el-form-item>
                 </el-form>
               </el-col>
-              <el-col :span="4">
+              <el-col :span="2">
                 <el-button type="primary" @click="addReviewNumber">保存</el-button>
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="20">
+              <el-col :span="8" :offset="6">
                 <el-form>
-                  <el-form-item label="评审推荐人数：">
+                  <el-form-item label="每位评委评审任务数：">
                     <el-input-number v-model="recommendNumber" :min="0" :max="50"/>
                   </el-form-item>
                 </el-form>
               </el-col>
-              <el-col :span="4">
+              <el-col :span="2">
                 <el-button type="primary" @click="saveRecommendNum">保存</el-button>
               </el-col>
             </el-row>
           </div>
           <div>
+            <el-divider>评审模板设置</el-divider>
             <p>请为当前赛事设置评审模板</p>
             <el-tree
                 :data="trackList"

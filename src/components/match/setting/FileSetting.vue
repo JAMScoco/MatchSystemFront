@@ -38,7 +38,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="文件" label-width="140px">
-            <FileUpload v-model="fileFrom.file" :limit="1"/>
+            <FileUpload v-model="fileFrom.file" :limit="1" :fileSize="10"/>
           </el-form-item>
         </el-form>
         <template #footer>
