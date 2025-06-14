@@ -2,55 +2,18 @@
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
       <h3 class="title">大赛管理系统</h3>
-      <el-form-item prop="username">
-        <el-input
-            v-model="registerForm.username"
-            type="text"
-            size="large"
-            auto-complete="off"
-            placeholder="账号"
-        >
-          <template #prefix>
-            <svg-icon icon-class="user" class="el-input__icon input-icon"/>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="level">
-        <el-radio-group @change="registerForm.sno = ''" v-model="registerForm.level">
-          <el-radio-button label="本科生在读">本科生在读</el-radio-button>
-          <el-radio-button label="硕士研究生在读">研究生硕士在读</el-radio-button>
-          <el-radio-button label="博士研究生在读">研究生博士在读</el-radio-button>
-          <el-radio-button label="往届生">往届生</el-radio-button>
-          <el-radio-button label="校外生">校外生</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item prop="deptId">
-        <el-select v-model="registerForm.deptId" placeholder="请选择院系">
-          <el-option
-              v-for="item in departments"
-              :key="item.deptId"
-              :label="item.deptName"
-              :value="item.deptId"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="sno" v-if="registerForm.level !== '校外生'">
+      <el-form-item prop="sno">
         <el-input
             v-model="registerForm.sno"
             type="text"
             size="large"
             auto-complete="off"
-            placeholder="学号"
-        />
-      </el-form-item>
-      <el-form-item prop="phoneNumber">
-        <el-input
-            v-model="registerForm.phoneNumber"
-            type="text"
-            size="large"
-            auto-complete="off"
-            placeholder="手机号"
-        />
+            placeholder="请输入学号"
+        >
+          <template #prefix>
+            <svg-icon icon-class="user" class="el-input__icon input-icon"/>
+          </template>
+        </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
@@ -105,8 +68,8 @@
             style="width:100%;"
             @click.prevent="handleRegister"
         >
-          <span v-if="!loading">注 册</span>
-          <span v-else>注 册 中...</span>
+          <span v-if="!loading">修改密码并找回账号</span>
+          <span v-else>执行中...</span>
         </el-button>
         <div style="float: right;">
           <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
@@ -122,7 +85,7 @@
 
 <script setup>
 import {ElMessageBox} from "element-plus";
-import {getCodeImg, register} from "@/api/login";
+import {forget_password, getCodeImg, register} from "@/api/login";
 import {useRouter} from "vue-router";
 import {getSchoolDepts} from "@/api/system/dept";
 import {getCurrentInstance, ref} from "vue";
@@ -131,15 +94,11 @@ const router = useRouter();
 const {proxy} = getCurrentInstance();
 
 const registerForm = ref({
-  username: "",
   password: "",
   confirmPassword: "",
   code: "",
   uuid: "",
-  level: "本科生在读",
   sno: "",
-  deptId: "",
-  phoneNumber:""
 });
 
 const equalToPassword = (rule, value, callback) => {
@@ -151,10 +110,6 @@ const equalToPassword = (rule, value, callback) => {
 };
 
 const registerRules = {
-  username: [
-    {required: true, trigger: "blur", message: "请输入您的账号"},
-    {min: 2, max: 20, message: "用户账号长度必须介于 2 和 20 之间", trigger: "blur"}
-  ],
   password: [
     {required: true, trigger: "blur", message: "请输入您的密码"},
     {min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur"}
@@ -164,9 +119,6 @@ const registerRules = {
     {required: true, validator: equalToPassword, trigger: "blur"}
   ],
   code: [{required: true, trigger: "change", message: "请输入验证码"}],
-  level: [{required: true, trigger: "blur", message: "请选择身份"}],
-  deptId: [{required: true, trigger: "blur", message: "请选择院系"}],
-  phoneNumber: [{required: true, trigger: "blur", message: "请填写手机号"}],
   sno: [{required: true, trigger: "blur", message: "请填写学号"}],
 };
 
@@ -178,9 +130,8 @@ function handleRegister() {
   proxy.$refs.registerRef.validate(valid => {
     if (valid) {
       loading.value = true;
-      register(registerForm.value).then(res => {
-        const username = registerForm.value.username;
-        ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
+      forget_password(registerForm.value).then(res => {
+        ElMessageBox.alert("<font color='red'>设置成功，您的账号为 " + res.msg, "系统提示", {
           dangerouslyUseHTMLString: true,
           type: "success",
         }).then(() => {

@@ -30,6 +30,18 @@ export function register(data) {
   })
 }
 
+// forget_password
+export function forget_password(data) {
+  return request({
+    url: '/system/user/forget_password',
+    headers: {
+      isToken: false
+    },
+    method: 'post',
+    data: data
+  })
+}
+
 // 获取用户详细信息
 export function getInfo() {
   return request({

@@ -36,37 +36,26 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label=" 作品赛道" prop="trackId">
-                <el-select v-model="props.form.trackId">
-                  <el-option :label="props.form.trackName"
-                             :value="props.form.trackId === undefined? 0:props.form.trackId"/>
-                </el-select>
+                {{props.form.trackName}}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label=" 作品组别" prop="groupId">
-                <el-select v-model="props.form.groupId">
-                  <el-option :label="props.form.groupName"
-                             :value="props.form.groupId === undefined? 0:props.form.groupId"
-                  />
-                </el-select>
+                {{props.form.groupName}}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label=" 作品类别" prop="categoryId">
-                <el-select v-model="props.form.categoryId">
-                  <el-option :label="props.form.categoryName"
-                             :value="props.form.categoryId === undefined? 0:props.form.categoryId"
-                  />
-                </el-select>
+                {{props.form.categoryName}}
               </el-form-item>
             </el-col>
           </el-row>
           <el-form-item label="作品概述" prop="overview">
-            <el-input v-model="props.form.overview" type="textarea" :rows="5"/>
+            <el-input v-model="props.form.overview" type="textarea" :rows="7"/>
           </el-form-item>
-          <el-row :gutter="8">
-            <el-col :span="10" :offset="4">
-              <b>其他成员：</b>
+          <el-row>
+            <el-col :span="20" :offset="2">
+              <b>团队成员：</b>
               <br>
               <br>
               <el-table :data="props.form.memberList" style="height: 200px" max-height="200">
@@ -76,7 +65,9 @@
                 <el-table-column label="手机号" align="center" prop="phone"/>
               </el-table>
             </el-col>
-            <el-col :span="10">
+          </el-row>
+          <el-row>
+            <el-col :span="20" :offset="2">
               <b>指导老师：</b>
               <br>
               <br>

@@ -99,6 +99,7 @@ import {Delete, Edit, Plus,} from '@element-plus/icons-vue'
 import {addGroup, delGroup, getGroup, updateGroup} from "@/api/match/group/group";
 import {addCategory, delCategory, getCategory, updateCategory} from "@/api/match/category/category";
 import {ElMessage, ElMessageBox} from "element-plus";
+import {onUnmounted} from "@vue/runtime-core";
 
 const {proxy} = getCurrentInstance()
 

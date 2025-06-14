@@ -11,7 +11,7 @@ import usePermissionStore from '@/store/modules/permission'
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register','/home/index','/home/news'];
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register','/home/index','/home/news','/login_error'];
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
@@ -51,7 +51,11 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
       next()
-    } else {
+    }else if(to.path.indexOf('/home/newsDetail/') !== -1){
+      // 新闻详情页直接进入
+      next()
+    }
+    else {
       next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
       NProgress.done()
     }

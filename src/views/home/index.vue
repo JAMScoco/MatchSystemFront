@@ -14,7 +14,7 @@
     >
       <swiper-slide v-for="(item) in carouselList" :key="item.id">
         <a :href="item.link">
-          <img :src="'/dev-api'+item.url" alt="" style="width: 100%;height: 100%">
+          <img :src="baseUrl+item.url" alt="" style="width: 100%;height: 100%">
         </a>
       </swiper-slide>
     </swiper>
@@ -62,7 +62,7 @@
         <el-col :span="12" :offset="6">
           <div style="display: flex;flex-direction: row;justify-content: center">
             <template v-for="(item) in matchNewsList" :key="item.id">
-              <MatchNewsPre :news="item"/>
+              <MatchNewsPre :news="item" @click="router.push(`/home/newsDetail/${item.id}`)"/>
             </template>
           </div>
         </el-col>
@@ -81,7 +81,7 @@
         <el-col :span="12" :offset="6">
           <div style="display: flex;flex-direction: row;justify-content: center">
             <template v-for="(item) in departmentNewsList" :key="item.id">
-              <MatchNewsPre :news="item"/>
+              <MatchNewsPre :news="item" @click="router.push(`/home/newsDetail/${item.id}`)"/>
             </template>
           </div>
         </el-col>
@@ -126,25 +126,25 @@
                 <h2>资料下载</h2>
                 <div v-if="hasMaterials" class="material_download">
                   <div v-if="matchInfo.competitionNotice != null" class="material_download_item">
-                    <a href="#">大赛通知</a>
+                    <a :href="baseUrl+matchInfo.competitionNotice">大赛通知</a>
                   </div>
                   <div v-if="matchInfo.reviewRules != null" class="material_download_item">
-                    <a href="#">评审规则</a>
+                    <a :href="baseUrl+matchInfo.reviewRules">评审规则</a>
                   </div>
                   <div v-if="matchInfo.studentOperationManual != null" class="material_download_item">
-                    <a href="#">学生操作手册</a>
+                    <a :href="baseUrl+matchInfo.studentOperationManual">学生操作手册</a>
                   </div>
                   <div v-if="matchInfo.competitionGuide != null" class="material_download_item">
-                    <a href="#">大赛指南</a>
+                    <a :href="baseUrl+matchInfo.competitionGuide">大赛指南</a>
                   </div>
                   <div v-if="matchInfo.collegeSchoolOperationManual != null" class="material_download_item">
-                    <a href="#">院级校级操作手册</a>
+                    <a :href="baseUrl+matchInfo.collegeSchoolOperationManual">院级校级操作手册</a>
                   </div>
                   <div v-if="matchInfo.businessCooperationInvitation != null" class="material_download_item">
-                    <a href="#">商业合作邀请函</a>
+                    <a :href="baseUrl+matchInfo.businessCooperationInvitation">商业合作邀请函</a>
                   </div>
                   <div v-if="matchInfo.competitionReviewManual != null" class="material_download_item">
-                    <a href="#">大赛评审手册</a>
+                    <a :href="baseUrl+matchInfo.competitionReviewManual">大赛评审手册</a>
                   </div>
                 </div>
                 <el-empty v-else description="暂无" style="width: 100%;height: 200px;"/>
@@ -203,7 +203,7 @@ import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {Pagination, Navigation} from "swiper";
-
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
 const modules = ref([Pagination, Navigation])
 //轮播图列表
 const carouselList = ref([])
@@ -235,14 +235,13 @@ function toCyPage(url) {
 import {computed, onMounted} from "vue";
 
 const hasMaterials = computed(() => {
-
-  return (matchInfo.competitionNotice != null)
-      || (matchInfo.reviewRules != null)
-      || (matchInfo.studentOperationManual != null)
-      || (matchInfo.competitionGuide != null)
-      || (matchInfo.collegeSchoolOperationManual != null)
-      || (matchInfo.businessCooperationInvitation != null)
-      || (matchInfo.competitionReviewManual != null)
+  return (matchInfo.value.competitionNotice != null)
+      || (matchInfo.value.reviewRules != null)
+      || (matchInfo.value.studentOperationManual != null)
+      || (matchInfo.value.competitionGuide != null)
+      || (matchInfo.value.collegeSchoolOperationManual != null)
+      || (matchInfo.value.businessCooperationInvitation != null)
+      || (matchInfo.value.competitionReviewManual != null)
 })
 
 import {getIndexInfo} from "@/api/home";

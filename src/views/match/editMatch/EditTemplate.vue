@@ -215,6 +215,7 @@ function handleDelete(row) {
 }
 
 function close() {
+  sessionStorage.setItem('activeName','5')
   proxy.$tab.closePage(router.currentRoute.value)
   router.push('/match/editMatch')
 }

@@ -82,8 +82,8 @@
             <el-input v-model="form.overview" type="textarea" :rows="7" placeholder="请输入内容"/>
           </el-form-item>
           <el-row :gutter="8">
-            <el-col :span="10" :offset="4">
-              <b>团队成员：</b>
+            <el-col :span="20" :offset="2">
+              <b>团队成员（不少于三人）：</b>
               <el-button type="primary" @click="addMember">添加成员</el-button>
               <br>
               <br>
@@ -99,8 +99,10 @@
                 </el-table-column>
               </el-table>
             </el-col>
-            <el-col :span="10">
-              <b>指导老师：</b>
+          </el-row>
+          <el-row :gutter="8">
+            <el-col :span="20" :offset="2">
+              <b>指导老师（必填）：</b>
               <el-button type="primary" @click="addTeacher">添加指导老师</el-button>
               <br>
               <br>
@@ -132,7 +134,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="作品附件（视频、PPT等）" prop="attachment">
+              <el-form-item label="作品附件（视频、PPT等）（非必填项）" prop="attachment">
                 <file-upload :fileSize="100" :limit="1" v-model="form.attachment" :file-type="['mp4','ppt']"/>
               </el-form-item>
             </el-col>
@@ -479,6 +481,20 @@ const userInfo = ref({})
 function submitForm() {
   proxy.$refs["workRef"].validate(valid => {
     if (valid) {
+      if (memberData.length < 2){
+        ElMessageBox.alert("互联网+比赛规则是参赛人员不少于3人", "提示", {
+          type: 'error',
+          confirmButtonText: '好的'
+        })
+        return
+      }
+      // if (teacherData.length < 1){
+      //   ElMessageBox.alert("至少添加一个指导老师", "提示", {
+      //     type: 'error',
+      //     confirmButtonText: '好的'
+      //   })
+      //   return
+      // }
       form.value.memberList = [...memberData]
       form.value.teacherList = [...teacherData]
       addWork(form.value).then(response => {

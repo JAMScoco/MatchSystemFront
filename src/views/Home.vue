@@ -39,8 +39,8 @@
           <a href="https://www.yangtzeu.edu.cn/" target="_blank">长江大学创新创业官网</a>|
           <a href="https://www.yangtzeu.edu.cn/" target="_blank">长江大学 </a>|
           <a href="https://www.yangtzeu.edu.cn/" target="_blank">联系我们 </a>
-          <p style="font-size: small">版权所有：教育部学生服务与素质发展中心（原全国高等学校学生信息咨询与就业指导中心）</p>
-          <p style="font-size: small">京ICP备xxxxxxx号-1京公网安备xxxxxxxxxxxxxx号</p>
+          <p style="font-size: small">版权所有：长江大学创新创业指导中心（东校区大礼堂副楼）</p>
+          <p style="font-size: small">长江大学</p>
         </div>
       </el-col>
       <el-col :span="2" style="text-align: center">
@@ -74,6 +74,10 @@ console.log(userStore)
   height: 150px;
   background-color: #312c2c;
   color: white;
+  position: fixed; /* 固定定位 */
+  left: 0; /* 左边距设置为0 */
+  bottom: 0; /* 底部设置为0，即固定在底部 */
+  width: 100%; /* 宽度设置为100%，使其横跨整个屏幕 */
 }
 
 .content{

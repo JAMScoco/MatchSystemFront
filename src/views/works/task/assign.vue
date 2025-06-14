@@ -19,6 +19,13 @@
           <h2>需要评审专家数量（自动计算）：{{ reviewerCount }}</h2>
           <br><br>
           <el-button type="primary" @click="active = 2">下一步</el-button>
+          <el-divider>操作提示</el-divider>
+          <el-row>
+            <el-col>
+              <h3>1.每位专家预计评审数量至少不能小于本次比赛待评审作品数量总数</h3>
+              <h3>2.自动计算出的需要评审专家数量至少不能小于每个作品需要评审数量</h3>
+            </el-col>
+          </el-row>
         </div>
         <div class="content" v-if="active === 2">
           <h1>请勾选{{ reviewerCount }}名专家</h1>
@@ -138,7 +145,7 @@ const data = reactive({
   form: {},
   queryParams: {
     pageNum: 1,
-    pageSize: 20,
+    pageSize: 200,
     trueName: null,
     deptId: null,
     phonenumber: null

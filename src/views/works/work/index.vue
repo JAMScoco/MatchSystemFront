@@ -61,7 +61,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置搜索条件</el-button>
       </el-form-item>
     </el-form>
 
@@ -95,7 +95,6 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button
-              v-if="scope.row.state === 0"
               type="primary"
               icon="Finished"
               @click="worksCheck(scope.row)"

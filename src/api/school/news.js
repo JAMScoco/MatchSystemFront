@@ -9,6 +9,14 @@ export function listNews(query) {
   })
 }
 
+
+export function getAllNews() {
+  return request({
+    url: '/school/news/getAllNews',
+    method: 'get',
+  })
+}
+
 // 查询动态管理详细
 export function getNews(id) {
   return request({

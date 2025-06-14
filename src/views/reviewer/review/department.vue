@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置搜索条件</el-button>
       </el-form-item>
     </el-form>
 
@@ -103,6 +103,11 @@ const { queryParams, form, rules } = toRefs(data);
 /** 查询评审分值列表 */
 function getList() {
   loading.value = true;
+  let page = sessionStorage.getItem('index_page')
+  if (page !== undefined && page !== null){
+    queryParams.value.pageNum = Number(page)
+    sessionStorage.removeItem("index_page")
+  }
   listScore(queryParams.value).then(response => {
     scoreList.value = response.rows;
     total.value = response.total;
@@ -147,11 +152,13 @@ function handleSelectionChange(selection) {
   multiple.value = !selection.length;
 }
 function toDoReview(id) {
+  sessionStorage.setItem("index_page",queryParams.value.pageNum)
   router.push("/department/doReview?id=" + id)
 }
 
 /** 查看详情操作 */
 function worksInfo(id) {
+  sessionStorage.setItem("index_page",queryParams.value.pageNum)
   router.push("/department/reviewWorkDetail?id=" + id)
 }
 

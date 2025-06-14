@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="loading" :data="reviewTemplate" stripe>
+    <el-table v-loading="loading" :data="reviewTemplate" stripe v-if="else">
       <el-table-column type="index" label="序号" width="55" align="center"/>
       <el-table-column label="评审要点" align="center" prop="keyPoints" width="150"/>
       <el-table-column label="评审内容">
@@ -18,8 +18,8 @@
     </el-table>
     <br>
     <el-row>
-      <el-col :span="2" :offset="11">
-        总分：{{ totalGoal }}
+      <el-col :span="8" :offset="8">
+        <el-slider v-model="totalGoal" :max="100" :min="0" show-input size="small"/>总分：{{ totalGoal }}
       </el-col>
     </el-row>
     <br>
@@ -55,14 +55,15 @@ getReviewTemplate(id).then(res => {
   loading.value = false
 })
 
-const totalGoal = computed(() => {
-  let total = 0;
-  reviewTemplate.value.forEach(item => {
-    let t = item.goal === undefined ? 0 : item.goal
-    total += t
-  })
-  return total
-})
+// const totalGoal = computed(() => {
+//   let total = 0;
+//   reviewTemplate.value.forEach(item => {
+//     let t = item.goal === undefined ? 0 : item.goal
+//     total += t
+//   })
+//   return total
+// })
+const totalGoal = ref(0)
 
 function submit() {
   ElMessageBox.confirm(

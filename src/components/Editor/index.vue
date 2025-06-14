@@ -18,15 +18,20 @@
 
 <script setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import {onBeforeUnmount, shallowRef, watch} from 'vue'
+import {onBeforeUnmount, shallowRef, toRef, watch} from 'vue'
 import {getToken} from "@/utils/auth";
-import {Toolbar,Editor} from "@wangeditor/editor-for-vue";
+import {Toolbar, Editor} from "@wangeditor/editor-for-vue";
 
 const emit = defineEmits();
 
 const props = defineProps({
   modelValue: [String],
 })
+
+if (import.meta.env.PROD) {
+  console.log(6)
+  var modelValue = toRef(props, 'modelValue')
+}
 
 watch(() => props.modelValue, value => {
   emit("update:modelValue", value)
@@ -46,7 +51,7 @@ const editorConfig = {
       server: uploadImgUrl.value,
       fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024, // 10M
-      headers:headers.value,
+      headers: headers.value,
       customInsert(res, insertFn) {                  // JS 语法
         // res 即服务端的返回结果
         console.log(res);
@@ -58,7 +63,7 @@ const editorConfig = {
       server: uploadImgUrl.value,
       fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024, // 10M
-      headers:headers.value,
+      headers: headers.value,
       customInsert(res, insertFn) {                  // JS 语法
         // res 即服务端的返回结果
         console.log(res);

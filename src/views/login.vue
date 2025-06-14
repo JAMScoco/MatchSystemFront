@@ -53,7 +53,8 @@
           <span v-else>登 录 中...</span>
         </el-button>
         <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+          <router-link class="link-type" :to="'/register'">立即注册</router-link> &nbsp;|&nbsp;
+          <router-link class="link-type" :to="'/login_error'">无法登录？</router-link>
         </div>
       </el-form-item>
     </el-form>

@@ -1,11 +1,12 @@
 <template>
   <div class="father">
     <el-row>
-      <el-col :span="12">
-        <el-image :src="'/dev-api'+news.picture" fit="cover" style="width: 150px;height: 150px;margin-top: 10%"/>
+      <el-col :span="10">
+<!--        <el-image :src="baseUrl+news.picture" fit="cover" style="width: 130px;height: 130px;margin-top: 10%"/>-->
+        <div class="image" :style="{background: `no-repeat center/100% url(${baseUrl}${news.picture})`}"></div>
       </el-col>
-      <el-col :span="12">
-        <div style="padding-top: 5%;padding-right: 10%">
+      <el-col :span="10" :offset="2">
+        <div style="padding-right: 10%;padding-left: 10%">
           <p class="text_main">{{ news.title }}</p>
           <p style="font-size: x-small">{{ news.title }}</p>
           <p style="font-size: xx-small;color: #99a9bf">{{ news.createTime }}</p>
@@ -16,6 +17,7 @@
 </template>
 
 <script setup>
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
 const props = defineProps({
   news: [Object],
 })
@@ -40,5 +42,12 @@ p{
   -webkit-box-orient: vertical;
   /* 从上到下垂直排列子元素（设置伸缩盒子的子元素排列方式） */
 }
-
+.image {
+  width: 100%;
+  display: block;
+  padding-top: 90%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 20px;
+}
 </style>

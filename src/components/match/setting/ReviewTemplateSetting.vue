@@ -43,6 +43,7 @@
             <span class="custom-tree-node">
               <span>{{ data.name }}</span>
               <span>
+                <el-tag size="small" type = 'success' v-if="node.level === 3 && data.hasTemplate">已设置</el-tag>
                 <el-button size="small" type="info" :icon="Edit" circle v-if="node.level === 3" style="margin-left: 8px"
                            @click="pushEditTemplate(data.id)"/>
               </span>

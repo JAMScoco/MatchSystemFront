@@ -54,12 +54,21 @@ export const constantRoutes = [
       {
         path: 'news',
         component: () => import('@/views/home/news')
+      },
+      {
+        path: 'newsDetail/:newsId',
+        component: () => import('@/views/home/newsDetail')
       }
     ]
   },
   {
     path: '/register',
     component: () => import('@/views/register'),
+    hidden: true
+  },
+  {
+    path: '/login_error',
+    component: () => import('@/views/LoginError.vue'),
     hidden: true
   },
   {

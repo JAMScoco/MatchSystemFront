@@ -31,9 +31,9 @@
 </template>
 
 <script setup>
-import {updateMatch} from "../../../api/match/history/match";
+import {getCurrentMatch, updateMatch} from "../../../api/match/history/match";
 import {ElMessage} from "element-plus";
-import {reactive,getCurrentInstance} from "vue";
+import {reactive, getCurrentInstance, onMounted} from "vue";
 import {defineProps} from "vue";
 
 const props = defineProps({

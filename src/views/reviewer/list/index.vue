@@ -30,7 +30,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置搜索条件</el-button>
       </el-form-item>
     </el-form>
 
@@ -45,14 +45,14 @@
               v-hasPermi="['works:work:edit']"
           >新增
           </el-button>
-        <el-button
-            type="success"
-            plain
-            icon="Upload"
-            @click="handleImport"
-            v-hasPermi="['works:work:export']"
-        >批量导入
-        </el-button>
+<!--        <el-button-->
+<!--            type="success"-->
+<!--            plain-->
+<!--            icon="Upload"-->
+<!--            @click="handleImport"-->
+<!--            v-hasPermi="['works:work:export']"-->
+<!--        >批量导入-->
+<!--        </el-button>-->
         <el-button
             type="warning"
             plain
@@ -89,6 +89,13 @@
               @click="resetPwd(scope.row)"
               v-hasPermi="['works:work:edit']">
             重置密码
+          </el-button>
+          <el-button
+              type="primary"
+              icon="Refresh"
+              @click="remove(scope.row)"
+              v-hasPermi="['works:work:edit']">
+            删除专家
           </el-button>
         </template>
       </el-table-column>
@@ -150,7 +157,7 @@
 <script setup>
 import {getSchoolDepts} from "@/api/system/dept";
 import {addReviewer, listReviewer, updateReviewer} from "@/api/school/reviewer";
-import {resetUserPwd} from "@/api/system/user";
+import {delUser, resetUserPwd} from "@/api/system/user";
 import {getConfigKey} from "@/api/system/config";
 import {computed} from "vue";
 
@@ -264,6 +271,15 @@ function resetPwd(row){
     resetUserPwd(row.userId, value).then(res => {
       proxy.$modal.msgSuccess("修改成功，新密码是：" + value)
     });
+  }).catch(() => {});
+}
+
+function remove(row){
+  proxy.$modal.confirm('是否确认删除专家"' + row.trueName + '"的数据项？').then(function () {
+    return delUser(row.userId);
+  }).then(() => {
+    getList();
+    proxy.$modal.msgSuccess("删除成功");
   }).catch(() => {});
 }
 

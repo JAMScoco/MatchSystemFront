@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置搜索条件</el-button>
       </el-form-item>
     </el-form>
 
@@ -105,10 +105,10 @@
         <el-form-item label="标题" prop="title">
           <el-input v-model="form.title" placeholder="请输入标题" />
         </el-form-item>
-        <el-form-item label="内容">
+        <el-form-item label="内容" prop="content">
           <Editor v-model="form.content"/>
         </el-form-item>
-        <el-form-item label="封面图片">
+        <el-form-item label="封面图片" prop="picture">
           <ImageUpload v-model="form.picture" :limit="1"/>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
@@ -129,6 +129,7 @@
 import { listNews, getNews, delNews, addNews, updateNews } from "@/api/school/news";
 import ImageUpload from '@/components/ImageUpload/index'
 import Editor from '@/components/Editor/index'
+import {getCurrentInstance, reactive, ref, toRefs} from "vue";
 
 const { proxy } = getCurrentInstance();
 
@@ -217,7 +218,7 @@ function resetQuery() {
 // 多选框选中数据
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.id);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -243,6 +244,7 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["newsRef"].validate(valid => {
     if (valid) {
+      console.log(form.value)
       if (form.value.id != null) {
         updateNews(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");

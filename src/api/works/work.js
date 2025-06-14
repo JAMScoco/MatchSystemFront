@@ -68,6 +68,8 @@ export function currentWorkInfo() {
   })
 }
 
+
+
 // 获取当前赛事待评审作品id
 export function waitReviewWorks() {
   return request({
@@ -98,6 +100,14 @@ export function recommendWork(id) {
     method: 'post',
   })
 }
+
+export function apiChangeWorks(id) {
+  return request({
+    url: `/works/work/change/${id}`,
+    method: 'post',
+  })
+}
+
 
 
 

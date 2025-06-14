@@ -112,7 +112,7 @@
 </template>
 
 <script setup>
-import {defineProps, getCurrentInstance} from "vue";
+import {defineProps, getCurrentInstance, onMounted} from "vue";
 import {updateMatch} from "../../../api/match/history/match";
 import {ElMessage} from "element-plus";
 

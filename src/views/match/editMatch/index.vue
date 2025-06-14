@@ -85,7 +85,11 @@ onMounted(() => {
       form.value = res.data
     }
   })
-
+  const active = sessionStorage.getItem('activeName')
+  if(active !== undefined && active !== null){
+    activeName.value = active
+    sessionStorage.removeItem('activeName')
+  }
 })
 
 </script>

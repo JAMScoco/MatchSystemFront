@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="8">
         <el-row>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-button type="primary" icon="Download" @click="downloadFile('学院专业班级信息')">院系专业班级查看
             </el-button>
           </el-col>
@@ -13,7 +13,7 @@
         </el-row>
         <br>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-button type="primary" icon="Download" @click="downloadFile('本科生学籍信息')">本科学生信息查看
             </el-button>
           </el-col>
@@ -24,7 +24,7 @@
         </el-row>
         <br>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-button type="primary" icon="Download" @click="downloadFile('研究生学籍信息')">研究生信息查看</el-button>
           </el-col>
           <el-col :span="3">
