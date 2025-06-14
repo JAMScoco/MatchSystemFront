@@ -48,7 +48,7 @@ const switchShow = ref(false)
 
 function init() {
   checkCanAssign().then(res => {
-    if (res.msg === 'ok') {
+    if (res.msg === 'ok' || res.msg ==='还有作品国家报名截图未审核') {
       ElMessageBox.alert('暂未生成评审任务', "提示", {
         type: 'error',
         showClose: false,

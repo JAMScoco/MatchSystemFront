@@ -108,6 +108,17 @@ export function apiChangeWorks(id) {
   })
 }
 
+export function apiChangeWorksInfo(id,key,name) {
+  return request({
+    url: `/works/work/changeName/${id}`,
+    method: 'post',
+    data:{
+      value:name,
+      key:key
+    }
+  })
+}
+
 
 
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WorkInfo :form="form"/>
+    <WorkInfo :form="form" :only-read="true"/>
     <div style="text-align: center;margin: 30px 0">
       <el-button type="primary" plain @click="turnBack">返回</el-button>
     </div>
