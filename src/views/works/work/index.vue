@@ -126,6 +126,7 @@
       <span class="dialog-footer">
         <el-button type="danger" @click="unpassCheck">不通过</el-button>
         <el-button type="primary" @click="passCheck">通过</el-button>
+        <el-button type="primary" @click="letrecom">设为院系推荐</el-button>
       </span>
       </template>
     </el-dialog>
@@ -211,6 +212,11 @@ function resetCheckWork() {
 
 function unpassCheck(){
   checkWorkData.state = -1
+  submitCheck()
+}
+
+function letrecom(){
+  checkWorkData.state = 2
   submitCheck()
 }
 
