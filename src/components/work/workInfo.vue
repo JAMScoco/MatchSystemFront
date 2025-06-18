@@ -124,15 +124,13 @@
         <el-divider/>
         <el-row>
           <el-col :span="10" :offset="2">
-            <template v-if="props.form.report">
               <b>作品报告（商业计划书）：</b>
-              <el-button type="primary" @click="handlePreview(props.form.report)">点击查看</el-button>
+              <el-button v-if="props.form.report" type="primary" @click="handlePreview(props.form.report)">点击查看</el-button>
               <p v-if="!props.onlyRead" style="margin-left: 20px">上传新计划书：</p>
               <file-upload v-if="!props.onlyRead" :limit="1" :fileSize="30" v-model="newReport" :file-type="['pdf']"/>
               <el-button v-if="!props.onlyRead" type="primary" style="margin-top: 10px" @click="changeWorksInfo('report',newReport)">
                 保存新计划书
               </el-button>
-            </template>
           </el-col>
 
         </el-row>
@@ -187,6 +185,10 @@ function handlePreview(res) {
 }
 
 function changeWorksInfo(key, value) {
+  if (value === '' && key==='report'){
+    ElMessage.info('正在上传，请稍等')
+    return
+  }
   apiChangeWorksInfo(props.form.id, key, value).then(() => {
     location.reload()
   })
