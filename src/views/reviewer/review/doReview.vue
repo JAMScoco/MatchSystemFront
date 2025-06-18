@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="loading" :data="reviewTemplate" stripe v-if="else">
+    <el-table v-loading="loading" :data="reviewTemplate" stripe v-if="false">
       <el-table-column type="index" label="序号" width="55" align="center"/>
       <el-table-column label="评审要点" align="center" prop="keyPoints" width="150"/>
       <el-table-column label="评审内容">
@@ -19,9 +19,18 @@
     <br>
     <el-row>
       <el-col :span="8" :offset="8">
-        <el-slider v-model="totalGoal" :max="100" :min="0" show-input size="small"/>总分：{{ totalGoal }}
+        评审意见（选填）：
+        <el-input v-model="remark" :rows="4" type="textarea"/>
       </el-col>
     </el-row>
+    <br>
+    <el-row>
+      <el-col :span="8" :offset="8">
+        <el-slider v-model="totalGoal" :max="100" :min="0" show-input size="small"/>
+        总分：{{ totalGoal }}
+      </el-col>
+    </el-row>
+
     <br>
     <el-row>
       <el-col :span="3" :offset="10">
@@ -45,6 +54,7 @@ const router = useRouter()
 const {proxy} = getCurrentInstance()
 
 const loading = ref(true);
+const remark = ref('');
 
 const id = router.currentRoute.value.query.id
 
@@ -98,6 +108,7 @@ function doSubmit() {
     details.push(i)
   })
   data.details = details
+  data.remark = remark.value
   submitScore({id: id, details: JSON.stringify(data)}).then(res => {
     back()
   })

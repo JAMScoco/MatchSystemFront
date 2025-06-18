@@ -59,13 +59,18 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog v-model="checkDialogShow" title="得分详情" width="40%" center @closed="resetDetails">
+    <el-dialog v-model="checkDialogShow" title="得分详情" width="80%" center @closed="resetDetails">
       <el-table :data="scoreDetailsData">
         <el-table-column label="序号" type="index" width="55" align="center"/>
         <el-table-column label="评审专家" align="center" prop="trueName" width="150"/>
-        <el-table-column label="总分" align="center">
+        <el-table-column label="总分" align="center" width="150">
           <template #default="scope">
             {{ JSON.parse(scope.row.scoreDetail).total }}
+          </template>
+        </el-table-column>
+        <el-table-column label="评审意见" align="center">
+          <template #default="scope">
+            {{ JSON.parse(scope.row.scoreDetail).remark }}
           </template>
         </el-table-column>
       </el-table>
